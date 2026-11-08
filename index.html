@@ -44,7 +44,7 @@ footer{padding:28px 16px;background:var(--pale);color:#705963;text-align:center;
 </header>
 <main>
 <section class="heading"><h2>Bộ sưu tập hoa</h2><p>15 mẫu hoa – xem ảnh thật và đặt mua tại TikTok Shop</p></section>
-<section class="product-grid" id="productGrid" aria-label="Danh sách sản phẩm"></section>
+<section id="productGrid" class="product-grid" aria-label="Danh sách sản phẩm">
 <p class="disclaimer">Giá hiển thị theo thông tin sản phẩm bạn cung cấp. Giá và tình trạng hàng có thể thay đổi theo chương trình của TikTok Shop.</p>
 </main>
 <footer>
@@ -73,7 +73,8 @@ const products=[
 {name:"Tỉ muội hồng pastel nàng thơ",price:"665,000đ",image:"04_ti-muoi-hong-pastel_665k.jpg"},
 {name:"Bó hoa trà lụa hồng pastel",price:"415,000đ",image:"01_hoa-tra-lua-hong-pastel_415k.jpg"}
 ];
-const grid=document.getElementById("productGrid");
+const grid = document.getElementById("productGrid");
+
 products.forEach(product=>{
  const card=document.createElement("article");card.className="product-card";
  const photo=document.createElement("a");photo.className="photo-link";photo.href=shopLink;photo.target="_blank";photo.rel="noopener noreferrer";
