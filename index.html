@@ -8,7 +8,6 @@
 <meta name="description" content="Bông Của Nhung – hoa sáp, hoa lụa và những bó hoa xinh xắn gửi trao yêu thương.">
 <meta name="theme-color" content="#fff4f7">
 <title>Bông Của Nhung | Hoa sáp & Hoa lụa</title>
-<style>
 
 /* FIX RESPONSIVE - BONG CUA NHUNG */
 * {
@@ -120,6 +119,121 @@ main {
   overflow-wrap: anywhere;
 }
 
+footer {
+  width: 100%;
+  text-align: center;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 620px) {
+  header.hero {
+    padding: 28px 14px 34px;
+    gap: 10px;
+  }
+
+  .brand-logo img {
+    width: 135px;
+    height: 135px;
+    max-width: 45vw;
+  }
+
+  .brand {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 0 5px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-link {
+    width: min(100%, 320px);
+    padding: 13px 16px;
+  }
+
+  main {
+    padding: 24px 12px 40px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .product-card img {
+    height: 175px;
+  }
+
+  .product-info {
+    padding: 12px;
+  }
+
+  .product-info h3 {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .price {
+    font-size: 17px;
+  }
+}
+
+/* DIEN THOAI NHO */
+@media (max-width: 360px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card img {
+    height: 240px;
+  }
+}
+
+  <style>
+
+.brand-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 12px 8px;
+}
+
+.brand-logo img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 50%;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .brand-logo img {
+    width: 125px;
+    height: 125px;
+  }
+}
+
+@media (min-width: 768px) {
+  .brand-logo img {
+    width: 210px;
+    height: 210px;
+  }
+}
 footer {
   width: 100%;
   text-align: center;
