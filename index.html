@@ -3,231 +3,90 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Bông Của Nhung – hoa sáp, hoa lụa và những bó hoa xinh xắn gửi trao yêu thương.">
-  <meta name="theme-color" content="#fff4f7">
-  <title>Bông Của Nhung | Hoa sáp & Hoa lụa</title>
-  <style>
-    :root {
-      --pink: #df5b83; --pink-dark: #b94770; --pale: #fff1f5;
-      --text: #382a30; --muted: #806d74; --border: #f2dce4;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; color: var(--text); background: #fffafb; font-family: Arial, Helvetica, sans-serif; }
-    a { text-decoration: none; }
-    .hero { text-align: center; padding: 54px 18px 42px; background: linear-gradient(135deg,#fff0f4,#fffaf6 58%,#fbe4ec); }
-    .brand { margin: 0 0 10px; color: var(--pink-dark); font: 700 clamp(38px,7vw,64px)/1.1 Georgia,serif; }
-    .tagline { max-width: 650px; margin: 0 auto 22px; color: #765d66; line-height: 1.7; }
-    .hero-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-    .hero-link { display: inline-block; padding: 12px 20px; border-radius: 30px; color: white; background: var(--pink); font-weight: 700; }
-    .hero-link.secondary { color: var(--pink-dark); background: white; border: 1px solid var(--border); }
-    main { max-width: 1200px; margin: auto; padding: 34px 18px 58px; }
-    .heading { text-align: center; margin: 0 0 28px; }
-    .heading h2 { margin: 0 0 8px; color: var(--pink-dark); font: 700 34px Georgia,serif; }
-    .heading p { margin: 0; color: var(--muted); }
-    .product-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
-    .product-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--border); border-radius: 18px; background: white; box-shadow: 0 8px 24px rgba(120,55,80,.06); }
-    .photo-link { display: block; background: var(--pale); }
-    .product-card img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-    .product-info { display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 14px; }
-    .product-info h3 { min-height: 42px; margin: 0; font-size: 15px; line-height: 1.45; }
-    .price { margin: 0; color: #d43f72; font-size: 21px; font-weight: 800; }
-    .buy-button { display: block; margin-top: auto; padding: 12px 10px; border-radius: 12px; background: var(--pink); color: white; text-align: center; font-weight: 800; }
-    .buy-button:hover,.hero-link:hover { background: var(--pink-dark); color: white; }
-    .disclaimer { margin: 24px 0 0; color: var(--muted); font-size: 13px; text-align: center; }
-    footer { padding: 28px 16px; background: var(--pale); color: #705963; text-align: center; line-height: 1.9; }
-    footer strong { color: var(--pink-dark); }
-    footer a { color: var(--pink-dark); }
-    @media (max-width: 900px) { .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
-    @media (max-width: 620px) {
-      .hero { padding: 40px 14px 32px; }
-      main { padding: 28px 12px 44px; }
-      .product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
-      .product-info { padding: 11px; gap: 8px; }
-      .product-info h3 { min-height: 54px; font-size: 13px; }
-      .price { font-size: 18px; }
-      .buy-button { padding: 10px 6px; font-size: 13px; }
-      .heading h2 { font-size: 29px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Bông Của Nhung – hoa sáp, hoa lụa và những bó hoa xinh xắn gửi trao yêu thương.">
+<meta name="theme-color" content="#fff4f7">
+<title>Bông Của Nhung | Hoa sáp & Hoa lụa</title>
+<style>
+:root{--pink:#df5b83;--pink-dark:#b94770;--pale:#fff1f5;--text:#382a30;--muted:#806d74;--border:#f2dce4}
+*{box-sizing:border-box}body{margin:0;color:var(--text);background:#fffafb;font-family:Arial,Helvetica,sans-serif}a{text-decoration:none}
+.hero{text-align:center;padding:54px 18px 42px;background:linear-gradient(135deg,#fff0f4,#fffaf6 58%,#fbe4ec)}
+.brand{margin:0 0 10px;color:var(--pink-dark);font:700 clamp(38px,7vw,64px)/1.1 Georgia,serif}
+.tagline{max-width:650px;margin:0 auto 22px;color:#765d66;line-height:1.7}
+.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.hero-link{display:inline-block;padding:12px 20px;border-radius:30px;color:white;background:var(--pink);font-weight:700}
+.hero-link.secondary{color:var(--pink-dark);background:white;border:1px solid var(--border)}
+main{max-width:1200px;margin:auto;padding:34px 18px 58px}.heading{text-align:center;margin:0 0 28px}
+.heading h2{margin:0 0 8px;color:var(--pink-dark);font:700 34px Georgia,serif}.heading p{margin:0;color:var(--muted)}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.product-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);border-radius:18px;background:white;box-shadow:0 8px 24px rgba(120,55,80,.06)}
+.photo-link{display:block;background:var(--pale)}.product-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+.product-info{display:flex;flex:1;flex-direction:column;gap:10px;padding:14px}
+.product-info h3{min-height:42px;margin:0;font-size:15px;line-height:1.45}
+.price{margin:0;color:#d43f72;font-size:21px;font-weight:800}
+.buy-button{display:block;margin-top:auto;padding:12px 10px;border-radius:12px;background:var(--pink);color:white;text-align:center;font-weight:800}
+.buy-button:hover,.hero-link:hover{background:var(--pink-dark);color:white}
+.disclaimer{margin:24px 0 0;color:var(--muted);font-size:13px;text-align:center}
+footer{padding:28px 16px;background:var(--pale);color:#705963;text-align:center;line-height:1.9}footer strong,footer a{color:var(--pink-dark)}
+@media(max-width:900px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.hero{padding:40px 14px 32px}main{padding:28px 12px 44px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-info{padding:11px;gap:8px}.product-info h3{min-height:54px;font-size:13px}.price{font-size:18px}.buy-button{padding:10px 6px;font-size:13px}.heading h2{font-size:29px}}
+</style>
 </head>
 <body>
-  <header class="hero">
-    <h1 class="brand">Bông Của Nhung</h1>
-    <p class="tagline">Trao một bó hoa – gửi ngàn yêu thương 🌷<br>Hoa sáp & hoa lụa xinh xắn dành tặng những người bạn yêu quý.</p>
-    <nav class="hero-actions" aria-label="Liên hệ và mua hàng">
-      <a class="hero-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">Ghé TikTok Shop</a>
-      <a class="hero-link secondary" href="https://zalo.me/0775179668" target="_blank" rel="noopener noreferrer">Tư vấn qua Zalo</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="heading">
-      <h2>Bộ sưu tập hoa</h2>
-      <p>15 mẫu hoa – giá bán theo ảnh TikTok Shop bạn đã gửi</p>
-    </section>
-    <section class="product-grid" aria-label="Danh sách sản phẩm">
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Hoa hướng dương mix cúc họa mi và hồng trắng trên TikTok Shop">
-          <img src="images/hoa-huong-duong-mix-cuc-hoa-mi-hong-trang.jpeg" alt="Hoa hướng dương mix cúc họa mi và hồng trắng" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Hoa hướng dương mix cúc họa mi và hồng trắng</h3>
-          <p class="price">175,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Hoa sáp Pastel hồng cao cấp kèm túi trên TikTok Shop">
-          <img src="images/hoa-sap-pastel-hong-kem-tui.jpeg" alt="Hoa sáp Pastel hồng cao cấp kèm túi" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Hoa sáp Pastel hồng cao cấp kèm túi</h3>
-          <p class="price">120,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế trên TikTok Shop">
-          <img src="images/hoa-hong-ecuador-diem-cuc-trang.jpeg" alt="Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế</h3>
-          <p class="price">250,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Bó hoa hồng sáp mix – Bông của Nhung trên TikTok Shop">
-          <img src="images/bo-hoa-hong-sap-mix.jpeg" alt="Bó hoa hồng sáp mix – Bông của Nhung" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Bó hoa hồng sáp mix – Bông của Nhung</h3>
-          <p class="price">295,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Hoa trà lụa size 30–35cm tone hồng nơ xinh trên TikTok Shop">
-          <img src="images/hoa-tra-lua-30-35cm-tone-hong.jpeg" alt="Hoa trà lụa size 30–35cm tone hồng nơ xinh" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Hoa trà lụa size 30–35cm tone hồng nơ xinh</h3>
-          <p class="price">297,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Bó hoa sáp phối ruy băng ngọc trai trên TikTok Shop">
-          <img src="images/bo-hoa-sap-ruy-bang-ngoc-trai.jpeg" alt="Bó hoa sáp phối ruy băng ngọc trai" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Bó hoa sáp phối ruy băng ngọc trai</h3>
-          <p class="price">300,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Cẩm tú cầu tone xanh tinh tế trên TikTok Shop">
-          <img src="images/cam-tu-cau-tone-xanh.jpeg" alt="Cẩm tú cầu tone xanh tinh tế" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Cẩm tú cầu tone xanh tinh tế</h3>
-          <p class="price">155,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Bó hoa lụa 20/11 hồng pastel phối trắng trên TikTok Shop">
-          <img src="images/bo-hoa-lua-20-11-hong-pastel-phoi-trang.jpeg" alt="Bó hoa lụa 20/11 hồng pastel phối trắng" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Bó hoa lụa 20/11 hồng pastel phối trắng</h3>
-          <p class="price">175,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ trên TikTok Shop">
-          <img src="images/hoa-hong-sap-tone-hong-do-no-xinh.jpeg" alt="Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ</h3>
-          <p class="price">220,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Hoa cẩm tú phối ly kép nụ hồng mềm mại trên TikTok Shop">
-          <img src="images/hoa-cam-tu-phoi-ly-kep-nu-hong.jpeg" alt="Hoa cẩm tú phối ly kép nụ hồng mềm mại" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Hoa cẩm tú phối ly kép nụ hồng mềm mại</h3>
-          <p class="price">253,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Bó hoa hồng Pastel Handmade trên TikTok Shop">
-          <img src="images/bo-hoa-hong-pastel-handmade.jpeg" alt="Bó hoa hồng Pastel Handmade" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Bó hoa hồng Pastel Handmade</h3>
-          <p class="price">250,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade trên TikTok Shop">
-          <img src="images/hoa-sap-giay-xe-form-oc-que.jpeg" alt="Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade</h3>
-          <p class="price">190,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Hoa Sofie hồng phối cúc trắng trên TikTok Shop">
-          <img src="images/hoa-sofie-hong-phoi-cuc-trang.jpeg" alt="Hoa Sofie hồng phối cúc trắng" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Hoa Sofie hồng phối cúc trắng</h3>
-          <p class="price">175,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Tỉ muội hồng pastel nàng thơ trên TikTok Shop">
-          <img src="images/ti-muoi-hong-pastel-nang-tho.jpeg" alt="Tỉ muội hồng pastel nàng thơ" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Tỉ muội hồng pastel nàng thơ</h3>
-          <p class="price">665,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-      <article class="product-card">
-        <a class="photo-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer" aria-label="Xem Bó hoa trà lụa hồng pastel trên TikTok Shop">
-          <img src="images/bo-hoa-tra-lua-hong-pastel.jpeg" alt="Bó hoa trà lụa hồng pastel" loading="lazy">
-        </a>
-        <div class="product-info">
-          <h3>Bó hoa trà lụa hồng pastel</h3>
-          <p class="price">415,000đ</p>
-          <a class="buy-button" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">MUA NGAY</a>
-        </div>
-      </article>
-    </section>
-    <p class="disclaimer">Giá hiển thị được ghi theo ảnh TikTok Shop bạn cung cấp. Giá và tình trạng hàng có thể thay đổi theo chương trình của TikTok Shop.</p>
-  </main>
-
-  <footer>
-    <strong>Bông Của Nhung</strong><br>
-    Zalo: <a href="https://zalo.me/0775179668">0775 179 668</a><br>
-    <a href="https://www.facebook.com/share/1F7cEjbyT5/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook Bông Của Nhung</a>
-    &nbsp;·&nbsp;
-    <a href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">TikTok Shop</a>
-  </footer>
+<header class="hero">
+<h1 class="brand">Bông Của Nhung</h1>
+<p class="tagline">Trao một bó hoa – gửi ngàn yêu thương 🌷<br>Hoa sáp & hoa lụa xinh xắn dành tặng những người bạn yêu quý.</p>
+<nav class="hero-actions" aria-label="Liên hệ và mua hàng">
+<a class="hero-link" href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">Ghé TikTok Shop</a>
+<a class="hero-link secondary" href="https://zalo.me/0775179668" target="_blank" rel="noopener noreferrer">Tư vấn qua Zalo</a>
+</nav>
+</header>
+<main>
+<section class="heading"><h2>Bộ sưu tập hoa</h2><p>15 mẫu hoa – xem ảnh thật và đặt mua tại TikTok Shop</p></section>
+<section class="product-grid" id="productGrid" aria-label="Danh sách sản phẩm"></section>
+<p class="disclaimer">Giá hiển thị theo thông tin sản phẩm bạn cung cấp. Giá và tình trạng hàng có thể thay đổi theo chương trình của TikTok Shop.</p>
+</main>
+<footer>
+<strong>Bông Của Nhung</strong><br>
+Zalo: <a href="https://zalo.me/0775179668">0775 179 668</a><br>
+<a href="https://www.facebook.com/share/1F7cEjbyT5/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook Bông Của Nhung</a> ·
+<a href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">TikTok Shop</a>
+</footer>
+<script>
+const shopLink="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop";
+// Ảnh đang nằm cùng cấp với index.html trong thư mục gốc GitHub, vì vậy KHÔNG thêm images/ ở đầu đường dẫn.
+const products=[
+{name:"Hoa hướng dương mix cúc họa mi và hồng trắng",price:"175,000đ",image:"14_hoa-huong-duong-mix_175k.jpg"},
+{name:"Hoa sáp Pastel hồng cao cấp kèm túi",price:"120,000đ",image:"15_hoa-sap-pastel-hong-kem-tui_120k.jpg"},
+{name:"Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế",price:"250,000đ",image:"13_hoa-hong-ecuador-cuc-trang_250k.jpg"},
+{name:"Bó hoa hồng sáp mix – Bông của Nhung",price:"295,000đ",image:"10_hoa-hong-sap-mix-bong-cua-nhung__295k.jpg"},
+{name:"Hoa trà lụa size 30–35cm tone hồng nơ xinh",price:"297,000đ",image:"11_hoa-tra-lua-hong-no-xinh__297k.jpg"},
+{name:"Bó hoa sáp phối ruy băng ngọc trai",price:"300,000đ",image:"12_hoa-sap-ruy-bang-ngoc-trai_300k.jpg"},
+{name:"Cẩm tú cầu tone xanh tinh tế",price:"155,000đ",image:"08_cam-tu-cau-xanh_155k.jpg"},
+{name:"Bó hoa lụa 20/11 hồng pastel phối trắng",price:"175,000đ",image:"09_hoa-lua-20-11-pastel_175k.jpg"},
+{name:"Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ",price:"220,000đ",image:"06_hoa-hong-sap-hong-do_220k.jpg"},
+{name:"Hoa cẩm tú phối ly kép nụ hồng mềm mại",price:"253,000đ",image:"05_cam-tu-phoi-ly-kep_253k.jpg"},
+{name:"Bó hoa hồng Pastel Handmade",price:"250,000đ",image:"07_hoa-hong-pastel-handmade_250k.jpg"},
+{name:"Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade",price:"190,000đ",image:"02_hoa-sap-giay-form-oc-que_190k.jpg"},
+{name:"Hoa Sofie hồng phối cúc trắng",price:"175,000đ",image:"03_hoa-sofia-hong-cuc-trang_175k.jpg"},
+{name:"Tỉ muội hồng pastel nàng thơ",price:"665,000đ",image:"04_ti-muoi-hong-pastel_665k.jpg"},
+{name:"Bó hoa trà lụa hồng pastel",price:"415,000đ",image:"01_hoa-tra-lua-hong-pastel_415k.jpg"}
+];
+const grid=document.getElementById("productGrid");
+products.forEach(product=>{
+ const card=document.createElement("article");card.className="product-card";
+ const photo=document.createElement("a");photo.className="photo-link";photo.href=shopLink;photo.target="_blank";photo.rel="noopener noreferrer";
+ photo.setAttribute("aria-label",`Xem ${product.name} trên TikTok Shop`);
+ const img=document.createElement("img");img.src=product.image;img.alt=product.name;img.loading="lazy";
+ img.onerror=function(){this.alt=`Chưa tải được ảnh: ${product.image}`;this.style.objectFit="contain";this.style.padding="18px"};
+ photo.appendChild(img);
+ const info=document.createElement("div");info.className="product-info";
+ const name=document.createElement("h3");name.textContent=product.name;
+ const price=document.createElement("p");price.className="price";price.textContent=product.price;
+ const buy=document.createElement("a");buy.className="buy-button";buy.href=shopLink;buy.target="_blank";buy.rel="noopener noreferrer";buy.textContent="MUA NGAY";
+ info.append(name,price,buy);card.append(photo,info);grid.appendChild(card);
+});
+</script>
 </body>
 </html>
