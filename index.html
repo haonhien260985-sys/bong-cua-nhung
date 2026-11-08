@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -9,7 +10,16 @@
 <meta name="theme-color" content="#fff4f7">
 <title>Bông Của Nhung | Hoa sáp & Hoa lụa</title>
 
-/* FIX RESPONSIVE - BONG CUA NHUNG */
+<style>
+:root {
+  --pink: #df5b83;
+  --pink-dark: #b94770;
+  --pale: #fff1f5;
+  --text: #382a30;
+  --muted: #806d74;
+  --border: #f2dce4;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -21,16 +31,32 @@ html, body {
   overflow-x: hidden;
 }
 
-header.hero {
+body {
+  color: var(--text);
+  background: #fffafb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* HEADER */
+.hero {
+  width: 100%;
+  padding: 42px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 100%;
-  padding: 36px 20px 42px;
+  gap: 14px;
   text-align: center;
-  gap: 12px;
+  background: linear-gradient(
+    135deg,
+    #fff0f4,
+    #fffaf6 58%,
+    #fbe4ec
+  );
 }
 
 .brand-logo {
@@ -42,31 +68,32 @@ header.hero {
 
 .brand-logo img {
   display: block;
-  width: 180px;
-  height: 180px;
+  width: 210px;
+  height: 210px;
   max-width: 55vw;
   object-fit: contain;
-  border-radius: 50%;
 }
 
 .brand {
   width: 100%;
   margin: 0;
+  color: var(--pink-dark);
+  font: 700 clamp(34px, 5vw, 58px)/1.15 Georgia, serif;
   text-align: center;
-  font-size: clamp(30px, 5vw, 48px);
-  line-height: 1.2;
 }
 
 .tagline {
   width: 100%;
   max-width: 650px;
-  margin: 0 auto 14px;
+  margin: 0 auto 12px;
   padding: 0 8px;
+  color: #765d66;
+  line-height: 1.7;
   text-align: center;
-  line-height: 1.65;
   overflow-wrap: break-word;
 }
 
+/* CONTACT BUTTONS */
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -82,175 +109,153 @@ header.hero {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   max-width: 100%;
+  padding: 13px 20px;
+  border-radius: 30px;
+  color: white;
+  background: var(--pink);
+  font-weight: 700;
+  text-align: center;
   white-space: normal;
 }
 
+.hero-link.secondary {
+  color: var(--pink-dark);
+  background: white;
+  border: 1px solid var(--border);
+}
+
+.hero-link:hover,
+.buy-button:hover {
+  background: var(--pink-dark);
+  color: white;
+}
+
+/* PRODUCT SECTION */
 main {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 18px 50px;
+  padding: 36px 18px 58px;
+}
+
+.heading {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.heading h2 {
+  margin: 0 0 8px;
+  color: var(--pink-dark);
+  font: 700 34px Georgia, serif;
+}
+
+.heading p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
   width: 100%;
 }
 
 .product-card {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
-  width: 100%;
   overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(120,55,80,.06);
+}
+
+.photo-link {
+  display: block;
+  background: var(--pale);
 }
 
 .product-card img {
   display: block;
   width: 100%;
-  height: 260px;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 }
 
 .product-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   min-width: 0;
+  gap: 10px;
+  padding: 14px;
   overflow-wrap: anywhere;
 }
 
-footer {
-  width: 100%;
-  text-align: center;
+.product-info h3 {
+  min-height: 44px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
-/* TABLET */
-@media (max-width: 900px) {
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
+.price {
+  margin: 0;
+  color: #d43f72;
+  font-size: 21px;
+  font-weight: 800;
 }
 
-/* MOBILE */
-@media (max-width: 620px) {
-  header.hero {
-    padding: 28px 14px 34px;
-    gap: 10px;
-  }
-
-  .brand-logo img {
-    width: 135px;
-    height: 135px;
-    max-width: 45vw;
-  }
-
-  .brand {
-    font-size: 32px;
-    line-height: 1.2;
-  }
-
-  .tagline {
-    font-size: 16px;
-    line-height: 1.6;
-    padding: 0 5px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .hero-link {
-    width: min(100%, 320px);
-    padding: 13px 16px;
-  }
-
-  main {
-    padding: 24px 12px 40px;
-  }
-
-  .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .product-card img {
-    height: 175px;
-  }
-
-  .product-info {
-    padding: 12px;
-  }
-
-  .product-info h3 {
-    font-size: 14px;
-    line-height: 1.45;
-  }
-
-  .price {
-    font-size: 17px;
-  }
-}
-
-/* DIEN THOAI NHO */
-@media (max-width: 360px) {
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .product-card img {
-    height: 240px;
-  }
-}
-
-  <style>
-
-.brand-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 18px 12px 8px;
-}
-
-.brand-logo img {
-  width: 180px;
-  height: 180px;
-  object-fit: contain;
-  border-radius: 50%;
+.buy-button {
   display: block;
+  margin-top: auto;
+  padding: 12px 10px;
+  border-radius: 12px;
+  color: white;
+  background: var(--pink);
+  text-align: center;
+  font-weight: 800;
 }
 
-@media (max-width: 600px) {
-  .brand-logo img {
-    width: 125px;
-    height: 125px;
-  }
+.disclaimer {
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
 }
 
-@media (min-width: 768px) {
-  .brand-logo img {
-    width: 210px;
-    height: 210px;
-  }
-}
+/* FOOTER */
 footer {
   width: 100%;
+  padding: 28px 16px;
+  background: var(--pale);
+  color: #705963;
   text-align: center;
+  line-height: 1.9;
+}
+
+footer strong,
+footer a {
+  color: var(--pink-dark);
 }
 
 /* TABLET */
 @media (max-width: 900px) {
   .product-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
   }
 }
 
 /* MOBILE */
 @media (max-width: 620px) {
-  header.hero {
-    padding: 28px 14px 34px;
+  .hero {
+    padding: 30px 14px 34px;
     gap: 10px;
   }
 
@@ -261,14 +266,12 @@ footer {
   }
 
   .brand {
-    font-size: 32px;
-    line-height: 1.2;
+    font-size: 34px;
   }
 
   .tagline {
     font-size: 16px;
     line-height: 1.6;
-    padding: 0 5px;
   }
 
   .hero-actions {
@@ -282,7 +285,11 @@ footer {
   }
 
   main {
-    padding: 24px 12px 40px;
+    padding: 28px 12px 44px;
+  }
+
+  .heading h2 {
+    font-size: 29px;
   }
 
   .product-grid {
@@ -290,141 +297,178 @@ footer {
     gap: 12px;
   }
 
-  .product-card img {
-    height: 175px;
-  }
-
   .product-info {
-    padding: 12px;
+    padding: 11px;
+    gap: 8px;
   }
 
   .product-info h3 {
-    font-size: 14px;
-    line-height: 1.45;
+    min-height: 54px;
+    font-size: 13px;
   }
 
   .price {
-    font-size: 17px;
+    font-size: 18px;
+  }
+
+  .buy-button {
+    padding: 10px 6px;
+    font-size: 13px;
   }
 }
 
-/* DIEN THOAI NHO */
+/* DIEN THOAI RAT NHO */
 @media (max-width: 360px) {
   .product-grid {
     grid-template-columns: 1fr;
   }
 
   .product-card img {
-    height: 240px;
+    aspect-ratio: 1 / 1;
   }
 }
-
-
-@media (min-width: 768px) {
-  .brand-logo img {
-    width: 210px;
-    height: 210px;
-  }
-}
-:root{--pink:#df5b83;--pink-dark:#b94770;--pale:#fff1f5;--text:#382a30;--muted:#806d74;--border:#f2dce4}
-*{box-sizing:border-box}body{margin:0;color:var(--text);background:#fffafb;font-family:Arial,Helvetica,sans-serif}a{text-decoration:none}
-.hero{text-align:center;padding:54px 18px 42px;background:linear-gradient(135deg,#fff0f4,#fffaf6 58%,#fbe4ec)}
-.brand{margin:0 0 10px;color:var(--pink-dark);font:700 clamp(38px,7vw,64px)/1.1 Georgia,serif}
-.tagline{max-width:650px;margin:0 auto 22px;color:#765d66;line-height:1.7}
-.hero-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.hero-link{display:inline-block;padding:12px 20px;border-radius:30px;color:white;background:var(--pink);font-weight:700}
-.hero-link.secondary{color:var(--pink-dark);background:white;border:1px solid var(--border)}
-main{max-width:1200px;margin:auto;padding:34px 18px 58px}.heading{text-align:center;margin:0 0 28px}
-.heading h2{margin:0 0 8px;color:var(--pink-dark);font:700 34px Georgia,serif}.heading p{margin:0;color:var(--muted)}
-.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.product-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border);border-radius:18px;background:white;box-shadow:0 8px 24px rgba(120,55,80,.06)}
-.photo-link{display:block;background:var(--pale)}.product-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
-.product-info{display:flex;flex:1;flex-direction:column;gap:10px;padding:14px}
-.product-info h3{min-height:42px;margin:0;font-size:15px;line-height:1.45}
-.price{margin:0;color:#d43f72;font-size:21px;font-weight:800}
-.buy-button{display:block;margin-top:auto;padding:12px 10px;border-radius:12px;background:var(--pink);color:white;text-align:center;font-weight:800}
-.buy-button:hover,.hero-link:hover{background:var(--pink-dark);color:white}
-.disclaimer{margin:24px 0 0;color:var(--muted);font-size:13px;text-align:center}
-footer{padding:28px 16px;background:var(--pale);color:#705963;text-align:center;line-height:1.9}footer strong,footer a{color:var(--pink-dark)}
-@media(max-width:900px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:620px){.hero{padding:40px 14px 32px}main{padding:28px 12px 44px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-info{padding:11px;gap:8px}.product-info h3{min-height:54px;font-size:13px}.price{font-size:18px}.buy-button{padding:10px 6px;font-size:13px}.heading h2{font-size:29px}}
 </style>
 </head>
+
 <body>
+
 <header class="hero">
-  <div class="brand-logo">
-<div class="brand-logo">
-  <div class="brand-logo">
-  <img src="logo-bong-cua-nhung.jpg"
-       alt="Logo Bông Của Nhung">
-</div>
-</div>
-<h1 class="brand">Bông Của Nhung</h1>
-<p class="tagline">Trao một bó hoa – gửi ngàn yêu thương 🌷<br>Hoa sáp & hoa lụa xinh xắn dành tặng những người bạn yêu quý.</p>
-<nav class="hero-actions" aria-label="Liên hệ và mua hàng">
-  <a class="hero-link"
-     href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop"
-     target="_blank" rel="noopener">
-    🛍️ Ghé TikTok Shop
-  </a>
 
-  <a class="hero-link secondary"
-     href="https://zalo.me/0775179668"
-     target="_blank" rel="noopener">
-    💬 Nhắn tin Zalo
-  </a>
+  <div class="brand-logo">
+    <img src="logo-bong-cua-nhung.jpg"
+         alt="Logo Bông Của Nhung">
+  </div>
 
-  <a class="hero-link secondary"
-     href="https://www.facebook.com/share/1F7cEjbyT5/?mibextid=wwXIfr"
-     target="_blank" rel="noopener">
-    📘 Facebook Bông Của Nhung
-  </a>
-</nav>
+  <h1 class="brand">Bông Của Nhung</h1>
+
+  <p class="tagline">
+    Trao một bó hoa – gửi ngàn yêu thương 🌷<br>
+    Hoa sáp & hoa lụa xinh xắn dành tặng những người bạn yêu quý.
+  </p>
+
+  <nav class="hero-actions" aria-label="Liên hệ và mua hàng">
+
+    <a class="hero-link"
+       href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop"
+       target="_blank" rel="noopener">
+      🛍️ Ghé TikTok Shop
+    </a>
+
+    <a class="hero-link secondary"
+       href="https://zalo.me/0775179668"
+       target="_blank" rel="noopener">
+      💬 Nhắn tin Zalo
+    </a>
+
+    <a class="hero-link secondary"
+       href="https://www.facebook.com/share/1F7cEjbyT5/?mibextid=wwXIfr"
+       target="_blank" rel="noopener">
+      📘 Facebook Bông Của Nhung
+    </a>
+
+  </nav>
 </header>
+
 <main>
-<section class="heading"><h2>Bộ sưu tập hoa</h2><p>15 mẫu hoa – xem ảnh thật và đặt mua tại TikTok Shop</p></section>
-<section id="productGrid" class="product-grid" aria-label="Danh sách sản phẩm">
-<p class="disclaimer">Giá hiển thị theo thông tin sản phẩm bạn cung cấp. Giá và tình trạng hàng có thể thay đổi theo chương trình của TikTok Shop.</p>
+
+  <section class="heading">
+    <h2>Bộ sưu tập hoa</h2>
+    <p>15 mẫu hoa – xem ảnh thật và đặt mua tại TikTok Shop</p>
+  </section>
+
+  <section id="productGrid"
+           class="product-grid"
+           aria-label="Danh sách sản phẩm">
+  </section>
+
+  <p class="disclaimer">
+    Giá hiển thị theo thông tin sản phẩm bạn cung cấp.
+    Giá và tình trạng hàng có thể thay đổi theo chương trình của TikTok Shop.
+  </p>
+
 </main>
+
 <footer>
-<strong>Bông Của Nhung</strong><br>
-Zalo: <a href="https://zalo.me/0775179668">0775 179 668</a><br>
-<a href="https://www.facebook.com/share/1F7cEjbyT5/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook Bông Của Nhung</a> ·
-<a href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop" target="_blank" rel="noopener noreferrer">TikTok Shop</a>
+  <strong>Bông Của Nhung</strong><br>
+  Trao yêu thương – Gửi nụ cười<br>
+  Zalo: <a href="https://zalo.me/0775179668">0775 179 668</a><br>
+  <a href="https://www.facebook.com/share/1F7cEjbyT5/?mibextid=wwXIfr"
+     target="_blank" rel="noopener noreferrer">
+    Facebook Bông Của Nhung
+  </a>
+  ·
+  <a href="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop"
+     target="_blank" rel="noopener noreferrer">
+    TikTok Shop
+  </a>
 </footer>
+
 <script>
-const shopLink="https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop";
-// Ảnh đang nằm cùng cấp với index.html trong thư mục gốc GitHub, vì vậy KHÔNG thêm images/ ở đầu đường dẫn.
-const products=[
-{name:"Hoa hướng dương mix cúc họa mi và hồng trắng",price:"175,000đ",image:"14_hoa-huong-duong-mix_175k.jpg"},
-{name:"Hoa sáp Pastel hồng cao cấp kèm túi",price:"120,000đ",image:"15_hoa-sap-pastel-hong-kem-tui_120k.jpg"},
-{name:"Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế",price:"250,000đ",image:"13_hoa-hong-ecuador-cuc-trang_250k.jpg"},
-{name:"Bó hoa sáp phối ruy băng ngọc trai",price:"300,000đ",image:"12_hoa-sap-ruy-bang-ngoc-trai_300k.jpg"},
-{name:"Cẩm tú cầu tone xanh tinh tế",price:"155,000đ",image:"08_cam-tu-cau-xanh_155k.jpg"},
-{name:"Bó hoa lụa 20/11 hồng pastel phối trắng",price:"175,000đ",image:"09_hoa-lua-20-11-pastel_175k.jpg"},
-{name:"Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ",price:"220,000đ",image:"06_hoa-hong-sap-hong-do_220k.jpg"},
-{name:"Hoa cẩm tú phối ly kép nụ hồng mềm mại",price:"253,000đ",image:"05_cam-tu-phoi-ly-kep_253k.jpg"},
-{name:"Bó hoa hồng Pastel Handmade",price:"250,000đ",image:"07_hoa-hong-pastel-handmade_250k.jpg"},
-{name:"Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade",price:"190,000đ",image:"02_hoa-sap-giay-form-oc-que_190k.jpg"},
-{name:"Hoa Sofie hồng phối cúc trắng",price:"175,000đ",image:"03_hoa-sofia-hong-cuc-trang_175k.jpg"},
-{name:"Tỉ muội hồng pastel nàng thơ",price:"665,000đ",image:"04_ti-muoi-hong-pastel_665k.jpg"},
-{name:"Bó hoa trà lụa hồng pastel",price:"415,000đ",image:"01_hoa-tra-lua-hong-pastel_415k.jpg"}
+const shopLink =
+  "https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop";
+
+const products = [
+  {name:"Hoa hướng dương mix cúc họa mi và hồng trắng",price:"175,000đ",image:"14_hoa-huong-duong-mix_175k.jpg"},
+  {name:"Hoa sáp Pastel hồng cao cấp kèm túi",price:"120,000đ",image:"15_hoa-sap-pastel-hong-kem-tui_120k.jpg"},
+  {name:"Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế",price:"250,000đ",image:"13_hoa-hong-ecuador-cuc-trang_250k.jpg"},
+  {name:"Bó hoa sáp phối ruy băng ngọc trai",price:"300,000đ",image:"12_hoa-sap-ruy-bang-ngoc-trai_300k.jpg"},
+  {name:"Cẩm tú cầu tone xanh tinh tế",price:"155,000đ",image:"08_cam-tu-cau-xanh_155k.jpg"},
+  {name:"Bó hoa lụa 20/11 hồng pastel phối trắng",price:"175,000đ",image:"09_hoa-lua-20-11-pastel_175k.jpg"},
+  {name:"Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ",price:"220,000đ",image:"06_hoa-hong-sap-hong-do_220k.jpg"},
+  {name:"Hoa cẩm tú phối ly kép nụ hồng mềm mại",price:"253,000đ",image:"05_cam-tu-phoi-ly-kep_253k.jpg"},
+  {name:"Bó hoa hồng Pastel Handmade",price:"250,000đ",image:"07_hoa-hong-pastel-handmade_250k.jpg"},
+  {name:"Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade",price:"190,000đ",image:"02_hoa-sap-giay-form-oc-que_190k.jpg"},
+  {name:"Hoa Sofie hồng phối cúc trắng",price:"175,000đ",image:"03_hoa-sofia-hong-cuc-trang_175k.jpg"},
+  {name:"Tỉ muội hồng pastel nàng thơ",price:"665,000đ",image:"04_ti-muoi-hong-pastel_665k.jpg"},
+  {name:"Bó hoa trà lụa hồng pastel",price:"415,000đ",image:"01_hoa-tra-lua-hong-pastel_415k.jpg"}
 ];
+
 const grid = document.getElementById("productGrid");
 
-products.forEach(product=>{
- const card=document.createElement("article");card.className="product-card";
- const photo=document.createElement("a");photo.className="photo-link";photo.href=shopLink;photo.target="_blank";photo.rel="noopener noreferrer";
- photo.setAttribute("aria-label",`Xem ${product.name} trên TikTok Shop`);
- const img=document.createElement("img");img.src=product.image;img.alt=product.name;img.loading="lazy";
- img.onerror=function(){card.remove();};
- photo.appendChild(img);
- const info=document.createElement("div");info.className="product-info";
- const name=document.createElement("h3");name.textContent=product.name;
- const price=document.createElement("p");price.className="price";price.textContent=product.price;
- const buy=document.createElement("a");buy.className="buy-button";buy.href=shopLink;buy.target="_blank";buy.rel="noopener noreferrer";buy.textContent="MUA NGAY";
- info.append(name,price,buy);card.append(photo,info);grid.appendChild(card);
+products.forEach(product => {
+  const card = document.createElement("article");
+  card.className = "product-card";
+
+  const photo = document.createElement("a");
+  photo.className = "photo-link";
+  photo.href = shopLink;
+  photo.target = "_blank";
+  photo.rel = "noopener noreferrer";
+
+  const img = document.createElement("img");
+  img.src = product.image;
+  img.alt = product.name;
+  img.loading = "lazy";
+
+  img.onerror = function() {
+    card.remove();
+  };
+
+  photo.appendChild(img);
+
+  const info = document.createElement("div");
+  info.className = "product-info";
+
+  const name = document.createElement("h3");
+  name.textContent = product.name;
+
+  const price = document.createElement("p");
+  price.className = "price";
+  price.textContent = product.price;
+
+  const buy = document.createElement("a");
+  buy.className = "buy-button";
+  buy.href = shopLink;
+  buy.target = "_blank";
+  buy.rel = "noopener noreferrer";
+  buy.textContent = "MUA NGAY";
+
+  info.append(name, price, buy);
+  card.append(photo, info);
+  grid.appendChild(card);
 });
 </script>
+
 </body>
 </html>
+
