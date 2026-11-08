@@ -78,7 +78,7 @@ products.forEach(product=>{
  const photo=document.createElement("a");photo.className="photo-link";photo.href=shopLink;photo.target="_blank";photo.rel="noopener noreferrer";
  photo.setAttribute("aria-label",`Xem ${product.name} trên TikTok Shop`);
  const img=document.createElement("img");img.src=product.image;img.alt=product.name;img.loading="lazy";
- img.onerror=function(){this.alt=`Chưa tải được ảnh: ${product.image}`;this.style.objectFit="contain";this.style.padding="18px"};
+ img.onerror=function(){card.remove();};Chưa tải được ảnh: ${product.image}`;this.style.objectFit="contain";this.style.padding="18px"};
  photo.appendChild(img);
  const info=document.createElement("div");info.className="product-info";
  const name=document.createElement("h3");name.textContent=product.name;
