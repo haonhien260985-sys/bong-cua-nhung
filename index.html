@@ -154,12 +154,22 @@ function makeCard(p){
   photo.rel="noopener noreferrer";
 
   const img=document.createElement("img");
-  img.src=p.image_url||p.image||"";
-  img.alt=p.name||"Hoa Bông Của Nhung";
-  img.loading="lazy";
-  img.onerror=()=>card.remove();
-  photo.appendChild(img);
 
+const imageFile = p.image_url || p.image || "";
+
+img.src = imageFile.startsWith("http")
+  ? imageFile
+  : "/" + imageFile.replace(/^\/+/, "");
+
+img.alt = p.name || "Hoa Bông Của Nhung";
+img.loading = "lazy";
+
+img.onerror = () => {
+  console.error("Không tải được ảnh:", img.src);
+  card.remove();
+};
+
+photo.appendChild(img);
   const info=document.createElement("div");
   info.className="product-info";
 
