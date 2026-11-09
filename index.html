@@ -261,13 +261,17 @@ async function loadProducts(){
   }
 }
 
-  const list=rows&&rows.length?rows:starterProducts;
-  list.forEach(p=>grid.appendChild(makeCard(p)));
+ document.querySelectorAll('a[href^="https://zalo.me/"]')
+  .forEach(a=>a.addEventListener("click",()=>track("click","zalo")));
 
-  document.getElementById("productSubtitle").textContent=
-    list.length+" mẫu hoa – xem ảnh và đặt mua tại TikTok Shop";
-}
+document.querySelectorAll('a[href*="facebook.com"]')
+  .forEach(a=>a.addEventListener("click",()=>track("click","facebook")));
 
+track("page_view");
+loadProducts();
+</script>
+</body>
+</html>
 document.querySelectorAll('a[href^="https://zalo.me/"]')
   .forEach(a=>a.addEventListener("click",()=>track("click","zalo")));
 
