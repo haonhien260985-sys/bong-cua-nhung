@@ -96,57 +96,27 @@ main{padding:28px 12px 44px}
 </footer>
 
 <script>
-const SUPABASE_URL = "https://mbxrttamyblspwapyydyl.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5h6qh2O8p-vdtvcUa1g_qA_wg2NWbzD";
 const shopLink = "https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop";
-const supabase = window.supabase?.createClient
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
-  : null;
 
-const starterProducts = [
-{name:"Hoa hướng dương mix cúc họa mi và hồng trắng",price:175000,image:"14_hoa-huong-duong-mix_175k.jpg"},
-{name:"Hoa sáp Pastel hồng cao cấp kèm túi",price:120000,image:"15_hoa-sap-pastel-hong-kem-tui_120k.jpg"},
-{name:"Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế",price:250000,image:"13_hoa-hong-ecuador-cuc-trang_250k.jpg"},
-{name:"Bó hoa sáp phối ruy băng ngọc trai",price:300000,image:"12_hoa-sap-ruy-bang-ngoc-trai_300k.jpg"},
-{name:"Cẩm tú cầu tone xanh tinh tế",price:155000,image:"08_cam-tu-cau-xanh_155k.jpg"},
-{name:"Bó hoa lụa 20/11 hồng pastel phối trắng",price:175000,image:"09_hoa-lua-20-11-pastel_175k.jpg"},
-{name:"Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ",price:220000,image:"06_hoa-hong-sap-hong-do_220k.jpg"},
-{name:"Hoa cẩm tú phối ly kép nụ hồng mềm mại",price:253000,image:"05_cam-tu-phoi-ly-kep_253k.jpg"},
-{name:"Bó hoa hồng Pastel Handmade",price:250000,image:"07_hoa-hong-pastel-handmade_250k.jpg"},
-{name:"Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade",price:190000,image:"02_hoa-sap-giay-form-oc-que_190k.jpg"},
-{name:"Hoa Sofie hồng phối cúc trắng",price:175000,image:"03_hoa-sofia-hong-cuc-trang_175k.jpg"},
-{name:"Tỉ muội hồng pastel nàng thơ",price:665000,image:"04_ti-muoi-hong-pastel_665k.jpg"},
-{name:"Bó hoa trà lụa hồng pastel",price:415000,image:"01_hoa-tra-lua-hong-pastel_415k.jpg"}
+const products = [
+["Hoa hướng dương mix cúc họa mi và hồng trắng",175000,"14_hoa-huong-duong-mix_175k.jpg"],
+["Hoa sáp Pastel hồng cao cấp kèm túi",120000,"15_hoa-sap-pastel-hong-kem-tui_120k.jpg"],
+["Bó hoa hồng Ecuador điểm hoa cúc trắng tinh tế",250000,"13_hoa-hong-ecuador-cuc-trang_250k.jpg"],
+["Bó hoa sáp phối ruy băng ngọc trai",300000,"12_hoa-sap-ruy-bang-ngoc-trai_300k.jpg"],
+["Cẩm tú cầu tone xanh tinh tế",155000,"08_cam-tu-cau-xanh_155k.jpg"],
+["Bó hoa lụa 20/11 hồng pastel phối trắng",175000,"09_hoa-lua-20-11-pastel_175k.jpg"],
+["Hoa hồng sáp tone hồng đỏ nơ xinh yêu dịp lễ",220000,"06_hoa-hong-sap-hong-do_220k.jpg"],
+["Hoa cẩm tú phối ly kép nụ hồng mềm mại",253000,"05_cam-tu-phoi-ly-kep_253k.jpg"],
+["Bó hoa hồng Pastel Handmade",250000,"07_hoa-hong-pastel-handmade_250k.jpg"],
+["Hoa sáp giấy xé hot tone hồng pastel form ốc quế Hàn Quốc Handmade",190000,"02_hoa-sap-giay-form-oc-que_190k.jpg"],
+["Hoa Sofie hồng phối cúc trắng",175000,"03_hoa-sofia-hong-cuc-trang_175k.jpg"],
+["Tỉ muội hồng pastel nàng thơ",665000,"04_ti-muoi-hong-pastel_665k.jpg"],
+["Bó hoa trà lụa hồng pastel",415000,"01_hoa-tra-lua-hong-pastel_415k.jpg"]
 ];
 
-function money(value){
-  return new Intl.NumberFormat("vi-VN").format(Number(value)||0)+"đ";
-}
+const grid = document.getElementById("productGrid");
 
-function getSessionId(){
-  let id=localStorage.getItem("bcn_session");
-  if(!id){
-    id=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random());
-    localStorage.setItem("bcn_session",id);
-  }
-  return id;
-}
-
-async function track(type,target=null){
-  try{
-    await supabase.from("site_events").insert({
-      event_type:type,
-      target:target,
-      session_id:getSessionId(),
-      page_path:location.pathname
-    });
-  }catch(e){
-    console.debug("Analytics unavailable",e);
-  }
-}
-
-
-function makeCard(p){
+products.forEach(([name, price, image]) => {
   const card = document.createElement("article");
   card.className = "product-card";
 
@@ -154,121 +124,37 @@ function makeCard(p){
   photo.className = "photo-link";
   photo.href = shopLink;
   photo.target = "_blank";
-  photo.rel = "noopener noreferrer";
 
   const img = document.createElement("img");
-
-  // Tìm ảnh dự phòng trong danh sách 13 sản phẩm
-  const fallbackProduct = starterProducts.find(
-    item => item.name.trim() === (p.name || "").trim()
-  );
-
-  const fallbackImage =
-    fallbackProduct?.image || p.image || "";
-
-  const primaryImage =
-  fallbackImage || p.image_url || "";
-
-  function imageUrl(path){
-    if(!path) return "";
-    if(/^https?:\/\//i.test(path)) return path;
-    return new URL(path.replace(/^\/+/, ""), location.origin + "/").href;
-  }
-
-  img.src = imageUrl(primaryImage);
-  img.alt = p.name || "Hoa Bông Của Nhung";
+  img.src = new URL(image, document.baseURI).href;
+  img.alt = name;
   img.loading = "lazy";
-
-  // Nếu ảnh Supabase lỗi, tự chuyển sang ảnh GitHub
-  img.onerror = function(){
-    if(
-      fallbackImage &&
-      img.dataset.fallback !== "used" &&
-      img.src !== imageUrl(fallbackImage)
-    ){
-      img.dataset.fallback = "used";
-      img.src = imageUrl(fallbackImage);
-    }else{
-      img.style.display = "none";
-      photo.style.minHeight = "100px";
-    }
-  };
-
   photo.appendChild(img);
 
   const info = document.createElement("div");
   info.className = "product-info";
 
-  const name = document.createElement("h3");
-  name.textContent = p.name || "Sản phẩm";
+  const title = document.createElement("h3");
+  title.textContent = name;
 
-  const price = document.createElement("p");
-  price.className = "price";
-  price.textContent = money(p.price);
+  const priceText = document.createElement("p");
+  priceText.className = "price";
+  priceText.textContent =
+    new Intl.NumberFormat("vi-VN").format(price) + "đ";
 
   const buy = document.createElement("a");
   buy.className = "buy-button";
   buy.href = shopLink;
   buy.target = "_blank";
-  buy.rel = "noopener noreferrer";
   buy.textContent = "MUA NGAY";
 
-  buy.addEventListener("click", () => track("click","tiktok"));
-  photo.addEventListener("click", () => track("click","tiktok"));
+  info.append(title, priceText, buy);
+  card.append(photo, info);
+  grid.appendChild(card);
+});
 
-  info.append(name,price,buy);
-  card.append(photo,info);
-
-  return card;
-}
-
-
-async function loadProducts(){
-  const grid = document.getElementById("productGrid");
-  const subtitle = document.getElementById("productSubtitle");
-
-  function showProducts(list){
-    grid.replaceChildren();
-    list.forEach(p => grid.appendChild(makeCard(p)));
-    subtitle.textContent =
-      list.length + " mẫu hoa – xem ảnh và đặt mua tại TikTok Shop";
-  }
-
-  // Hiển thị 13 sản phẩm có sẵn trước
-  showProducts(starterProducts);
-
-  // Nếu Supabase không kết nối được, vẫn giữ sản phẩm trên website
-  if (!supabase) {
-    console.warn("Supabase chưa tải được. Đang dùng danh sách sản phẩm có sẵn.");
-    return;
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from("products")
-      .select("id,name,price,description,image_url,is_active")
-      .eq("is_active", true)
-      .order("created_at", { ascending: false });
-
-    if (error) throw error;
-
-    if (data && data.length > 0) {
-      showProducts(data);
-    }
-  } catch (error) {
-    console.error("Lỗi tải sản phẩm từ Supabase:", error);
-    // Giữ nguyên 13 sản phẩm đã hiển thị
-  }
-}
-
- document.querySelectorAll('a[href^="https://zalo.me/"]')
-  .forEach(a=>a.addEventListener("click",()=>track("click","zalo")));
-
-document.querySelectorAll('a[href*="facebook.com"]')
-  .forEach(a=>a.addEventListener("click",()=>track("click","facebook")));
-
-track("page_view");
-loadProducts();
+document.getElementById("productSubtitle").textContent =
+  products.length + " mẫu hoa – xem ảnh và đặt mua tại TikTok Shop";
 </script>
 </body>
 </html>
