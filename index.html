@@ -143,57 +143,83 @@ async function track(type,target=null){
   }
 }
 
+
 function makeCard(p){
-  const card=document.createElement("article");
-  card.className="product-card";
+  const card = document.createElement("article");
+  card.className = "product-card";
 
-  const photo=document.createElement("a");
-  photo.className="photo-link";
-  photo.href=shopLink;
-  photo.target="_blank";
-  photo.rel="noopener noreferrer";
+  const photo = document.createElement("a");
+  photo.className = "photo-link";
+  photo.href = shopLink;
+  photo.target = "_blank";
+  photo.rel = "noopener noreferrer";
 
-  const img=document.createElement("img");
+  const img = document.createElement("img");
 
-const imageFile = p.image_url || p.image || "";
+  // Tìm ảnh dự phòng trong danh sách 13 sản phẩm
+  const fallbackProduct = starterProducts.find(
+    item => item.name.trim() === (p.name || "").trim()
+  );
 
-img.src = imageFile.startsWith("http")
-  ? imageFile
-  : "/" + imageFile.replace(/^\/+/, "");
+  const fallbackImage =
+    fallbackProduct?.image || p.image || "";
 
-img.alt = p.name || "Hoa Bông Của Nhung";
-img.loading = "lazy";
+  const primaryImage =
+    p.image_url || fallbackImage;
 
-img.onerror = () => {
-  console.error("Không tải được ảnh:", img.src);
-  card.remove();
-};
+  function imageUrl(path){
+    if(!path) return "";
+    if(/^https?:\/\//i.test(path)) return path;
+    return new URL(path.replace(/^\/+/, ""), location.origin + "/").href;
+  }
 
-photo.appendChild(img);
-  const info=document.createElement("div");
-  info.className="product-info";
+  img.src = imageUrl(primaryImage);
+  img.alt = p.name || "Hoa Bông Của Nhung";
+  img.loading = "lazy";
 
-  const name=document.createElement("h3");
-  name.textContent=p.name||"Sản phẩm";
+  // Nếu ảnh Supabase lỗi, tự chuyển sang ảnh GitHub
+  img.onerror = function(){
+    if(
+      fallbackImage &&
+      img.dataset.fallback !== "used" &&
+      img.src !== imageUrl(fallbackImage)
+    ){
+      img.dataset.fallback = "used";
+      img.src = imageUrl(fallbackImage);
+    }else{
+      img.style.display = "none";
+      photo.style.minHeight = "100px";
+    }
+  };
 
-  const price=document.createElement("p");
-  price.className="price";
-  price.textContent=money(p.price);
+  photo.appendChild(img);
 
-  const buy=document.createElement("a");
-  buy.className="buy-button";
-  buy.href=shopLink;
-  buy.target="_blank";
-  buy.rel="noopener noreferrer";
-  buy.textContent="MUA NGAY";
+  const info = document.createElement("div");
+  info.className = "product-info";
 
-  buy.addEventListener("click",()=>track("click","tiktok"));
-  photo.addEventListener("click",()=>track("click","tiktok"));
+  const name = document.createElement("h3");
+  name.textContent = p.name || "Sản phẩm";
+
+  const price = document.createElement("p");
+  price.className = "price";
+  price.textContent = money(p.price);
+
+  const buy = document.createElement("a");
+  buy.className = "buy-button";
+  buy.href = shopLink;
+  buy.target = "_blank";
+  buy.rel = "noopener noreferrer";
+  buy.textContent = "MUA NGAY";
+
+  buy.addEventListener("click", () => track("click","tiktok"));
+  photo.addEventListener("click", () => track("click","tiktok"));
 
   info.append(name,price,buy);
   card.append(photo,info);
+
   return card;
 }
+
 
 async function loadProducts(){
   const grid=document.getElementById("productGrid");
