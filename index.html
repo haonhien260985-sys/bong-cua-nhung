@@ -99,7 +99,9 @@ main{padding:28px 12px 44px}
 const SUPABASE_URL = "https://mbxrttamyblspwapyydyl.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5h6qh2O8p-vdtvcUa1g_qA_wg2NWbzD";
 const shopLink = "https://vt.tiktok.com/ZSpBhuxGr/?page=TikTokShop";
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const supabase = window.supabase?.createClient
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+  : null;
 
 const starterProducts = [
 {name:"Hoa hướng dương mix cúc họa mi và hồng trắng",price:175000,image:"14_hoa-huong-duong-mix_175k.jpg"},
@@ -222,22 +224,42 @@ function makeCard(p){
 
 
 async function loadProducts(){
-  const grid=document.getElementById("productGrid");
-  grid.replaceChildren();
+  const grid = document.getElementById("productGrid");
+  const subtitle = document.getElementById("productSubtitle");
 
-  let rows=null;
-  try{
-    const {data,error}=await supabase
+  function showProducts(list){
+    grid.replaceChildren();
+    list.forEach(p => grid.appendChild(makeCard(p)));
+    subtitle.textContent =
+      list.length + " mẫu hoa – xem ảnh và đặt mua tại TikTok Shop";
+  }
+
+  // Hiển thị 13 sản phẩm có sẵn trước
+  showProducts(starterProducts);
+
+  // Nếu Supabase không kết nối được, vẫn giữ sản phẩm trên website
+  if (!supabase) {
+    console.warn("Supabase chưa tải được. Đang dùng danh sách sản phẩm có sẵn.");
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase
       .from("products")
       .select("id,name,price,description,image_url,is_active")
-      .eq("is_active",true)
-      .order("created_at",{ascending:false});
+      .eq("is_active", true)
+      .order("created_at", { ascending: false });
 
-    if(error) throw error;
-    rows=data;
-  }catch(e){
-    console.warn("Could not load Supabase products; using starter catalog",e);
+    if (error) throw error;
+
+    if (data && data.length > 0) {
+      showProducts(data);
+    }
+  } catch (error) {
+    console.error("Lỗi tải sản phẩm từ Supabase:", error);
+    // Giữ nguyên 13 sản phẩm đã hiển thị
   }
+}
 
   const list=rows&&rows.length?rows:starterProducts;
   list.forEach(p=>grid.appendChild(makeCard(p)));
