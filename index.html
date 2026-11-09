@@ -165,7 +165,7 @@ function makeCard(p){
     fallbackProduct?.image || p.image || "";
 
   const primaryImage =
-    p.image_url || fallbackImage;
+  fallbackImage || p.image_url || "";
 
   function imageUrl(path){
     if(!path) return "";
