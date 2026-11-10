@@ -1,0 +1,91 @@
+<!doctype html><html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff3f7"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Bông Của Nhung">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png">
+<title>Quản trị | Bông Của Nhung</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--pink:#dc6288;--dark:#a93e68;--pale:#fff1f5;--ink:#382a30;--muted:#826d75;--line:#f0d9e2}
+*{box-sizing:border-box}body{margin:0;background:#fff9fb;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+header{padding:28px 18px 22px;text-align:center;background:linear-gradient(135deg,#ffeaf1,#fffaf7);border-bottom:1px solid var(--line)}
+header h1{margin:0;color:var(--dark);font:700 30px Georgia,serif}header p{margin:7px 0 0;color:var(--muted);font-size:14px}
+main{max-width:900px;margin:auto;padding:14px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin:13px 0;box-shadow:0 6px 22px #7a3c5510}
+h2{font-size:19px;margin:0 0 12px}label{display:block;font-size:14px;font-weight:700;margin:12px 0 6px}
+input,textarea,select{width:100%;font:inherit;padding:13px;border:1px solid #e7ccd6;border-radius:11px;background:white;color:var(--ink)}
+button{border:0;border-radius:12px;background:var(--pink);color:white;padding:12px 16px;font-weight:700;font-size:14px;cursor:pointer}
+button:disabled{opacity:.55}.secondary{background:#f7e8ee;color:var(--dark)}.danger{background:#fff0f1;color:#b63c55;border:1px solid #f1cbd2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.muted{color:var(--muted);font-size:13px;line-height:1.5}.status{padding:11px 12px;border-radius:11px;background:#fff1f5;color:#80445c;font-size:13px;line-height:1.5;white-space:pre-wrap;margin-top:12px}
+.status.ok{background:#edf8f1;color:#246345}.status.err{background:#fff0f1;color:#9c3047}.hidden{display:none!important}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:12px 5px;border-radius:13px;background:#fff4f7;text-align:center}.stat strong{display:block;color:var(--dark);font-size:23px}.stat span{font-size:12px;color:var(--muted)}
+.product{display:grid;grid-template-columns:68px 1fr auto;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #f5e7ec}.product:last-child{border:0}
+.product img{width:68px;height:68px;object-fit:cover;border-radius:11px;background:var(--pale)}.product-name{font-weight:700;font-size:14px;line-height:1.35}.product-price{font-weight:800;color:var(--dark);margin-top:5px;font-size:14px}
+.product-actions{display:flex;gap:5px;flex-direction:column}.product-actions button{padding:8px 10px;font-size:12px}
+.preview{width:100px;height:100px;object-fit:cover;border-radius:12px;margin-top:8px;background:var(--pale)}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}footer{text-align:center;padding:12px;color:var(--muted);font-size:12px}
+@media(max-width:520px){main{padding:9px}.panel{padding:13px}.row{grid-template-columns:1fr}.stats{gap:5px}.stat strong{font-size:20px}}
+</style></head><body>
+<header><h1>🌷 Bông Của Nhung</h1><p>Ứng dụng quản trị cửa hàng</p></header><main>
+<section id="loginPanel" class="panel"><h2>Đăng nhập quản trị</h2><p class="muted">Dùng tài khoản đã tạo trong Supabase Authentication. Không chia sẻ mật khẩu.</p>
+<label>Email</label><input id="email" type="email" autocomplete="username" placeholder="Email quản trị">
+<label>Mật khẩu</label><input id="password" type="password" autocomplete="current-password" placeholder="Mật khẩu">
+<div class="actions"><button id="loginBtn">Đăng nhập</button><button id="forgotBtn" class="secondary" type="button">Quên mật khẩu</button></div><div id="loginMsg" class="status hidden"></div></section>
+<section id="resetPanel" class="panel hidden"><h2>Đặt mật khẩu mới</h2><p class="muted">Mở trang này từ liên kết khôi phục mới nhất trong email.</p>
+<label>Mật khẩu mới</label><input id="newPassword" type="password" minlength="8" autocomplete="new-password"><div class="actions"><button id="updatePasswordBtn">Lưu mật khẩu mới</button></div><div id="resetMsg" class="status hidden"></div></section>
+<section id="appPanel" class="hidden">
+<div class="panel"><div class="topline"><div><h2>Tổng quan cửa hàng</h2><div id="userLabel" class="muted"></div></div><button id="logoutBtn" class="secondary">Đăng xuất</button></div>
+<div class="stats" style="margin-top:14px"><div class="stat"><strong id="totalCount">—</strong><span>Tổng sản phẩm</span></div><div class="stat"><strong id="activeCount">—</strong><span>Đang hiển thị</span></div><div class="stat"><strong id="eventCount">—</strong><span>Lượt ghi nhận*</span></div></div>
+<p class="muted">* Đọc từ bảng site_events nếu tài khoản có quyền xem.</p><div id="appMsg" class="status">Đang kết nối…</div></div>
+<div class="panel" id="editorPanel"><div class="topline"><h2 id="editorTitle">Thêm sản phẩm mới</h2><button id="clearFormBtn" class="secondary" type="button">Làm mới</button></div>
+<form id="productForm"><input id="productId" type="hidden"><label>Tên sản phẩm *</label><input id="productName" maxlength="180" required placeholder="Tên bó hoa">
+<div class="row"><div><label>Giá bán (VNĐ) *</label><input id="productPrice" type="number" min="0" step="1000" required placeholder="175000"></div>
+<div><label>Trạng thái</label><select id="productActive"><option value="true">Đang hiển thị</option><option value="false">Ẩn sản phẩm</option></select></div></div>
+<label>Mô tả</label><textarea id="productDescription" rows="3" placeholder="Mô tả ngắn về bó hoa"></textarea>
+<label>Ảnh sản phẩm</label><input id="productImage" type="file" accept="image/png,image/jpeg,image/webp"><p class="muted">Chọn ảnh từ iPhone, tối đa 5 MB.</p>
+<img id="imagePreview" class="preview hidden" alt="Xem trước ảnh"><div class="actions"><button id="saveBtn" type="submit">Lưu sản phẩm</button><button id="cancelEditBtn" class="secondary hidden" type="button">Hủy sửa</button></div></form></div>
+<div class="panel"><div class="topline"><h2>Danh sách sản phẩm</h2><button id="refreshBtn" class="secondary" type="button">Tải lại</button></div>
+<label for="searchBox">Tìm sản phẩm</label><input id="searchBox" placeholder="Nhập tên sản phẩm…"><div id="productList" style="margin-top:8px"></div></div></section></main>
+<footer>Bông Của Nhung · Trao yêu thương – Gửi nụ cười</footer>
+<script>
+const SUPABASE_URL="https://mbxrttamyblspwapydyl.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY="sb_publishable_5h6qh2O8p-vdtvcUa1g_qA_wg2NWbzD";
+const STORAGE_BUCKET="product-images", sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY), $=id=>document.getElementById(id);
+let rows=[],currentImageUrl="",recoveryMode=location.hash.includes("type=recovery");
+function msg(id,t,k=""){let e=$(id);e.textContent=t;e.classList.remove("hidden","ok","err");if(k)e.classList.add(k)}
+function cash(n){return new Intl.NumberFormat("vi-VN").format(Number(n)||0)+"đ"}
+function showApp(u){$("loginPanel").classList.add("hidden");$("resetPanel").classList.add("hidden");$("appPanel").classList.remove("hidden");$("userLabel").textContent="Đăng nhập: "+(u.email||"")}
+function showLogin(){$("appPanel").classList.add("hidden");$("resetPanel").classList.add("hidden");$("loginPanel").classList.remove("hidden")}
+async function loadProducts(){
+ msg("appMsg","Đang tải sản phẩm…");
+ const {data,error}=await sb.from("products").select("id,name,price,description,image_url,is_active,created_at").order("created_at",{ascending:false});
+ if(error){msg("appMsg","Không tải được sản phẩm: "+error.message+"\nKiểm tra bảng products và quyền SELECT/RLS trong Supabase.","err");return}
+ rows=data||[];$("totalCount").textContent=rows.length;$("activeCount").textContent=rows.filter(p=>p.is_active===true).length;render();
+ msg("appMsg","Đã tải "+rows.length+" sản phẩm.","ok");
+ try{const {count,error:e}=await sb.from("site_events").select("*",{count:"exact",head:true});$("eventCount").textContent=e?"—":(count??0)}catch(_){$("eventCount").textContent="—"}
+}
+function render(){
+ let box=$("productList");box.replaceChildren();let q=$("searchBox").value.trim().toLocaleLowerCase("vi");
+ let arr=rows.filter(p=>(p.name||"").toLocaleLowerCase("vi").includes(q));
+ if(!arr.length){box.textContent="Chưa có sản phẩm phù hợp.";return}
+ arr.forEach(p=>{let el=document.createElement("div");el.className="product";
+ let im=document.createElement("img");im.src=p.image_url||"./icon-192.png";im.alt="";
+ let details=document.createElement("div"),nm=document.createElement("div"),pr=document.createElement("div"),st=document.createElement("div");
+ nm.className="product-name";nm.textContent=p.name||"Sản phẩm";pr.className="product-price";pr.textContent=cash(p.price);st.className="muted";st.textContent=p.is_active?"Đang hiển thị":"Đang ẩn";details.append(nm,pr,st);
+ let acts=document.createElement("div");acts.className="product-actions";let edit=document.createElement("button");edit.textContent="Sửa";edit.onclick=()=>editRow(p);
+ let del=document.createElement("button");del.textContent="Xóa";del.className="danger";del.onclick=()=>removeRow(p);acts.append(edit,del);el.append(im,details,acts);box.append(el)})
+}
+function clearForm(){$("productForm").reset();$("productId").value="";currentImageUrl="";$("editorTitle").textContent="Thêm sản phẩm mới";$("imagePreview").classList.add("hidden");$("cancelEditBtn").classList.add("hidden");$("saveBtn").textContent="Lưu sản phẩm"}
+function editRow(p){$("productId").value=p.id;$("productName").value=p.name||"";$("productPrice").value=p.price??"";$("productDescription").value=p.description||"";$("productActive").value=String(p.is_active!==false);currentImageUrl=p.image_url||"";$("editorTitle").textContent="Sửa sản phẩm";$("cancelEditBtn").classList.remove("hidden");$("saveBtn").textContent="Cập nhật sản phẩm";if(currentImageUrl){$("imagePreview").src=currentImageUrl;$("imagePreview").classList.remove("hidden")}$("editorPanel").scrollIntoView({behavior:"smooth"})}
+async function upload(file){if(!file)return currentImageUrl;if(file.size>5*1024*1024)throw Error("Ảnh vượt quá 5 MB.");if(!["image/jpeg","image/png","image/webp"].includes(file.type))throw Error("Chỉ nhận JPG, PNG, WEBP.");let ext=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg",path=Date.now()+"-"+Math.random().toString(36).slice(2)+"."+ext;let {error}=await sb.storage.from(STORAGE_BUCKET).upload(path,file,{contentType:file.type});if(error)throw error;return sb.storage.from(STORAGE_BUCKET).getPublicUrl(path).data.publicUrl}
+$("productForm").onsubmit=async e=>{e.preventDefault();$("saveBtn").disabled=true;try{let image_url=await upload($("productImage").files[0]);let p={name:$("productName").value.trim(),price:Number($("productPrice").value),description:$("productDescription").value.trim(),image_url,is_active:$("productActive").value==="true"};if(!p.name)throw Error("Vui lòng nhập tên sản phẩm.");let id=$("productId").value,r=id?await sb.from("products").update(p).eq("id",id):await sb.from("products").insert(p);if(r.error)throw r.error;clearForm();msg("appMsg","Đã lưu sản phẩm.","ok");await loadProducts()}catch(err){msg("appMsg","Không lưu được: "+err.message,"err")}finally{$("saveBtn").disabled=false}};
+async function removeRow(p){if(!confirm('Xóa "'+p.name+'"?'))return;let {error}=await sb.from("products").delete().eq("id",p.id);if(error){msg("appMsg","Không xóa được: "+error.message,"err");return}await loadProducts()}
+$("loginBtn").onclick=async()=>{let b=$("loginBtn");b.disabled=true;msg("loginMsg","Đang đăng nhập…");try{let {data,error}=await sb.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)throw error;showApp(data.user);await loadProducts()}catch(e){msg("loginMsg","Không đăng nhập được: "+e.message,"err")}finally{b.disabled=false}};
+$("forgotBtn").onclick=async()=>{let email=$("email").value.trim();if(!email){msg("loginMsg","Nhập email trước khi yêu cầu khôi phục.","err");return}try{let {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;msg("loginMsg","Đã gửi yêu cầu khôi phục nếu email hợp lệ. Mở email và dùng liên kết mới nhất.","ok")}catch(e){msg("loginMsg","Không gửi được email: "+e.message,"err")}};
+$("updatePasswordBtn").onclick=async()=>{let p=$("newPassword").value;if(p.length<8){msg("resetMsg","Mật khẩu cần ít nhất 8 ký tự.","err");return}let {error}=await sb.auth.updateUser({password:p});if(error){msg("resetMsg","Không đổi được mật khẩu: "+error.message,"err");return}msg("resetMsg","Đã đổi mật khẩu. Bạn có thể đăng nhập lại.","ok");await sb.auth.signOut();recoveryMode=false;showLogin()};
+$("logoutBtn").onclick=async()=>{await sb.auth.signOut();showLogin()};
+$("refreshBtn").onclick=loadProducts;$("clearFormBtn").onclick=clearForm;$("cancelEditBtn").onclick=clearForm;$("searchBox").oninput=render;
+$("productImage").onchange=()=>{let f=$("productImage").files[0];if(f){$("imagePreview").src=URL.createObjectURL(f);$("imagePreview").classList.remove("hidden")}};
+sb.auth.onAuthStateChange((ev,session)=>{if(ev==="PASSWORD_RECOVERY"){recoveryMode=true;$("loginPanel").classList.add("hidden");$("appPanel").classList.add("hidden");$("resetPanel").classList.remove("hidden")}else if(session&&!recoveryMode)showApp(session.user);else if(!session&&!recoveryMode)showLogin()});
+(async()=>{if(recoveryMode){$("loginPanel").classList.add("hidden");$("resetPanel").classList.remove("hidden");return}let {data:{session}}=await sb.auth.getSession();if(session){showApp(session.user);await loadProducts()}})();
+if("serviceWorker"in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.warn));
+</script></body></html>

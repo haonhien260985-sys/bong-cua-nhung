@@ -1,0 +1,22 @@
+{
+  "name": "Bông Của Nhung – Quản trị",
+  "short_name": "Bông Của Nhung",
+  "description": "Quản lý sản phẩm cửa hàng Bông Của Nhung",
+  "start_url": "./admin-app.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff9fb",
+  "theme_color": "#fff3f7",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

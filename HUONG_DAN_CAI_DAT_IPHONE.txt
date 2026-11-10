@@ -1,0 +1,30 @@
+BÔNG CỦA NHUNG – PWA QUẢN TRỊ IPHONE
+
+CÀI LÊN GITHUB PAGES
+1. Mở repository haonhien260985-sys/bong-cua-nhung.
+2. Upload 5 file trong ZIP vào thư mục gốc (cùng cấp index.html).
+3. Commit changes và đợi GitHub Pages cập nhật.
+4. Trên iPhone mở Safari: https://bongcuanhung.shop/admin-app.html
+5. Đăng nhập bằng tài khoản Supabase hiện có.
+6. Nhấn nút Chia sẻ trong Safari → Thêm vào Màn hình chính → Thêm.
+
+TÍNH NĂNG
+- Đăng nhập và gửi email khôi phục mật khẩu.
+- Hiển thị danh sách sản phẩm.
+- Thêm/sửa/xóa, giá, mô tả, bật/tắt sản phẩm.
+- Tải ảnh từ thư viện iPhone lên Storage.
+- Thống kê tổng sản phẩm, đang hiển thị và số bản ghi site_events (nếu được cấp quyền).
+
+SUPABASE
+Project URL đã dùng URL người dùng cung cấp: https://mbxrttamyblspwapydyl.supabase.co
+Publishable key là khóa công khai đã dùng trước đó.
+Bảng products cần id, name, price, description, image_url, is_active, created_at.
+Storage bucket product-images phải tồn tại. Tài khoản cần policy RLS cho SELECT/INSERT/UPDATE/DELETE trên products và quyền upload vào bucket.
+Không dùng service_role key và không tắt RLS.
+
+AUTH URL CONFIGURATION
+Site URL: https://bongcuanhung.shop
+Redirect URLs: https://bongcuanhung.shop/**
+
+GHI CHÚ
+PWA cài được trên iPhone qua Safari, không cần App Store. HTTPS và kết nối internet cần thiết để đăng nhập/đồng bộ. Giao diện có thể mở offline sau khi đã cache nhưng thao tác dữ liệu cần mạng.
