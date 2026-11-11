@@ -107,12 +107,47 @@ function showProducts(list){
 }
 showProducts(starterProducts);
 (async()=>{
-  if(!supabaseClient) return;
+  const subtitle = document.getElementById("productSubtitle");
+
+  if(!supabaseClient){
+    subtitle.textContent = "Không thể kết nối Supabase. Vui lòng kiểm tra cấu hình.";
+    return;
+  }
+
+  subtitle.textContent = "Đang đồng bộ sản phẩm từ cửa hàng...";
+
   try{
-    const {data,error}=await supabaseClient.from("products").select("id,name,price,description,image_url,is_active").eq("is_active",true).order("created_at",{ascending:false});
+    const {data,error,count} = await supabaseClient
+      .from("products")
+      .select(
+        "id,name,price,description,image_url,is_active,created_at",
+        {count:"exact"}
+      )
+      .eq("is_active",true)
+      .order("created_at",{ascending:false});
+
     if(error) throw error;
-    if(data && data.length) showProducts(data);
-  }catch(e){console.warn("Đang dùng danh sách sản phẩm dự phòng:",e);}
+
+    if(!data || data.length === 0){
+      document.getElementById("productGrid").replaceChildren();
+      subtitle.textContent = "Chưa có sản phẩm đang hiển thị.";
+      return;
+    }
+
+    showProducts(data);
+
+    subtitle.textContent =
+      `Đang hiển thị ${data.length} sản phẩm từ cửa hàng.`;
+
+    console.log("Supabase products:", data);
+    console.log("Tổng số bản ghi:", count);
+
+  }catch(error){
+    console.error("Lỗi tải sản phẩm Supabase:",error);
+
+    subtitle.textContent =
+      "Lỗi đồng bộ Supabase: " + error.message;
+  }
 })();
 </script>
 </body>
