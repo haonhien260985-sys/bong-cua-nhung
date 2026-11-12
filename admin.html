@@ -1,165 +1,105 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff4f7">
 <title>Quản trị | Bông Của Nhung</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--pink:#df5b83;--dark:#b94770;--bg:#fff7f9;--line:#f1dce4;--ink:#382a30}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}
-header{padding:22px 16px;background:linear-gradient(135deg,#fff0f4,#fffaf6);text-align:center}
-h1{margin:0;color:var(--dark);font-family:Georgia,serif}header p{margin:8px 0 0;color:#806d74}
-.wrap{max-width:1100px;margin:24px auto;padding:0 16px}
-.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 6px 20px #7837500c}
-input,textarea,select{width:100%;padding:12px;border:1px solid #e7cbd5;border-radius:9px;font:inherit;background:white}
-label{display:block;font-weight:700;margin:12px 0 6px}
-button,.btn{border:0;border-radius:9px;padding:11px 16px;background:var(--pink);color:white;font-weight:700;cursor:pointer}
-button:hover,.btn:hover{background:var(--dark)}button.secondary{background:#8a737c}button.danger{background:#b8324c}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.hidden{display:none!important}.muted{color:#806d74;font-size:14px}
-#status{margin:12px 0;padding:10px;border-radius:8px;background:#fff1f5;color:#80415b;white-space:pre-wrap}
-table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
-td img{width:64px;height:64px;object-fit:cover;border-radius:8px;background:#fff1f5}
-.table-wrap{overflow-x:auto}.small{font-size:13px}
-@media(max-width:650px){.row{grid-template-columns:1fr}.panel{padding:14px}th,td{padding:8px;font-size:13px}}
+:root{--pink:#df5b83;--deep:#b94770;--pale:#fff1f5;--ink:#382a30;--muted:#806d74;--line:#f0dce4;--green:#18845b;--red:#bd4053;--shadow:0 10px 28px rgba(120,55,80,.07)}
+*{box-sizing:border-box}body{margin:0;background:#fffafb;color:var(--ink);font-family:Arial,Helvetica,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.top{padding:25px 16px 22px;text-align:center;background:linear-gradient(135deg,#fff0f4,#fffaf7 60%,#fbe4ec);border-bottom:1px solid var(--line)}.top h1{margin:0;color:var(--deep);font:700 clamp(27px,5vw,38px) Georgia,serif}.top p{margin:8px 0 0;color:var(--muted)}main{max-width:1100px;margin:0 auto;padding:22px 14px 50px}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}h2{font-size:20px;margin:0 0 15px}.hint{color:var(--muted);font-size:13px;line-height:1.5}.field{display:flex;flex-direction:column;gap:7px;margin:11px 0}.field label{font-weight:700;font-size:14px}.field input,.field select,.field textarea{width:100%;border:1px solid #e8cbd6;border-radius:12px;padding:12px;background:#fff;color:var(--ink);min-height:45px}.field textarea{min-height:72px;resize:vertical}.btn{border-radius:12px;padding:12px 16px;background:var(--pink);color:#fff;font-weight:700}.btn.secondary{background:#f8e8ee;color:var(--deep)}.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--deep)}.btn.danger{background:#fff0f1;color:var(--red)}.btn:disabled{opacity:.5;cursor:not-allowed}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat{background:#fff7fa;border:1px solid var(--line);border-radius:16px;padding:15px;min-width:0}.stat .label{color:var(--muted);font-size:13px}.stat strong{display:block;font-size:clamp(20px,3vw,27px);margin:8px 0 3px;overflow-wrap:anywhere}.stat small{color:var(--muted)}.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:14px}.tab{white-space:nowrap;padding:10px 14px;border-radius:999px;background:#f8e8ee;color:var(--deep);font-weight:700}.tab.active{background:var(--pink);color:white}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:11px;padding:10px;min-height:42px;background:white}.toolbar input{flex:1;min-width:160px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #f3e6eb;font-size:13px;vertical-align:top}th{color:var(--muted);background:#fff8fa;position:sticky;top:0}.pill{display:inline-block;border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700;background:#f5edf0}.pill.new{background:#fff0cf;color:#8b5b00}.pill.confirmed{background:#e8f1ff;color:#315f9c}.pill.shipping{background:#efe8ff;color:#7048a5}.pill.completed{background:#e4f6ed;color:#16734d}.pill.cancelled{background:#ffe8e8;color:#ad3444}.notice{padding:11px 13px;border-radius:12px;background:#fff5dc;color:#785500;font-size:13px;line-height:1.5;margin:10px 0}.error{background:#fff0f1;color:#a52d40}.success{background:#eaf8f0;color:#176c49}.hidden{display:none!important}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.right{text-align:right}.login{max-width:560px;margin:26px auto}.chart{display:flex;align-items:end;gap:7px;height:150px;padding:12px 4px 0;border-bottom:1px solid var(--line)}.barbox{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%;gap:5px}.bar{width:100%;max-width:34px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,#ed8eac,#d84f7c);min-height:2px}.barbox small{font-size:10px;color:var(--muted);white-space:nowrap}.empty{padding:22px;text-align:center;color:var(--muted)}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px}.section-title h2{margin-bottom:0}@media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid{grid-template-columns:1fr}.panel{padding:15px}main{padding:16px 10px 35px}.top{padding-top:20px}}
 </style>
 </head>
 <body>
-<header><h1>Bông Của Nhung</h1><p>Trang quản trị sản phẩm</p></header>
-<div class="wrap">
-  <section id="loginPanel" class="panel">
-    <h2>Đăng nhập quản trị</h2>
-    <p class="muted">Đăng nhập bằng tài khoản quản trị Supabase đã được cấp quyền.</p>
-    <label>Email</label><input id="email" type="email" autocomplete="username" placeholder="Email quản trị">
-    <label>Mật khẩu</label><input id="password" type="password" autocomplete="current-password" placeholder="Mật khẩu">
-    <div class="actions"><button id="loginBtn">Đăng nhập</button></div>
-    <div id="loginStatus" role="status"></div>
+<header class="top"><h1>🌷 Bông Của Nhung</h1><p>Ứng dụng quản trị cửa hàng · Đơn hàng & doanh thu</p></header>
+<main>
+<section id="loginPanel" class="panel login">
+  <h2>Đăng nhập quản trị</h2><p class="hint">Dùng tài khoản quản trị đã tạo trong Supabase Authentication.</p>
+  <form id="loginForm">
+    <div class="field"><label>Email</label><input id="email" type="email" autocomplete="username" required placeholder="Email quản trị"></div>
+    <div class="field"><label>Mật khẩu</label><input id="password" type="password" autocomplete="current-password" required placeholder="Mật khẩu"></div>
+    <button class="btn" type="submit">Đăng nhập</button>
+  </form><div id="loginMessage" class="hint" aria-live="polite"></div>
+</section>
+<section id="appPanel" class="hidden">
+  <div class="panel row"><div><strong id="adminEmail">Đã đăng nhập</strong><div class="hint">Dữ liệu từ Supabase</div></div><button id="refreshBtn" class="btn secondary">↻ Tải lại</button><button id="logoutBtn" class="btn ghost">Đăng xuất</button></div>
+  <div class="panel">
+    <div class="section-title"><h2>Tổng quan kinh doanh</h2><select id="period"><option value="today">Hôm nay</option><option value="7">7 ngày qua</option><option value="30" selected>30 ngày qua</option><option value="all">Tất cả</option></select></div>
+    <div class="stats" style="margin-top:14px">
+      <div class="stat"><div class="label">Lượt xem trang</div><strong id="views">—</strong><small id="visitors">Khách truy cập: —</small></div>
+      <div class="stat"><div class="label">Tổng đơn hàng</div><strong id="ordersCount">—</strong><small id="pendingCount">Chờ xử lý: —</small></div>
+      <div class="stat"><div class="label">Doanh thu hoàn thành</div><strong id="revenue">—</strong><small>Chỉ tính đơn hoàn thành</small></div>
+      <div class="stat"><div class="label">Giá trị đơn trung bình</div><strong id="average">—</strong><small>Trên đơn hoàn thành</small></div>
+    </div>
+    <div class="notice">Lượt xem lấy từ sự kiện <b>page_view</b> đã ghi trên website. Doanh thu chỉ tính đơn có trạng thái <b>Hoàn thành</b>. Đơn TikTok Shop cần nhập hoặc cập nhật thủ công; hệ thống hiện chưa kết nối API TikTok Shop.</div>
+  </div>
+  <div class="panel"><div class="section-title"><h2>Đơn hàng theo ngày</h2><span class="hint">Theo khoảng thời gian đã chọn</span></div><div id="chart" class="chart"></div></div>
+  <div class="tabs"><button class="tab active" data-tab="orders">Đơn hàng</button><button class="tab" data-tab="add">+ Thêm đơn</button><button class="tab" data-tab="traffic">Lượt truy cập</button></div>
+  <section id="ordersTab" class="panel">
+    <div class="section-title"><h2>Danh sách đơn hàng</h2><span id="orderTotal" class="hint"></span></div>
+    <div class="toolbar" style="margin-top:12px"><input id="searchOrders" placeholder="Tìm mã đơn, tên khách, số điện thoại..."><select id="sourceFilter"><option value="all">Tất cả nguồn</option><option value="website">Website</option><option value="tiktok">TikTok Shop</option></select><select id="statusFilter"><option value="all">Tất cả trạng thái</option><option value="new">Mới</option><option value="confirmed">Đã xác nhận</option><option value="shipping">Đang giao</option><option value="completed">Hoàn thành</option><option value="cancelled">Đã hủy</option></select></div>
+    <div class="table-wrap"><table><thead><tr><th>Mã / Ngày</th><th>Nguồn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Tổng tiền</th><th>Trạng thái</th><th>Cập nhật</th></tr></thead><tbody id="ordersBody"></tbody></table></div><div id="ordersEmpty" class="empty hidden">Chưa có đơn hàng trong khoảng thời gian này.</div>
   </section>
-
-  <section id="appPanel" class="hidden">
-    <div class="panel">
-      <div class="row"><div><h2>Quản lý sản phẩm</h2><p class="muted" id="signedIn"></p></div>
-      <div class="actions" style="justify-content:flex-end;align-items:start"><button id="newBtn" type="button">+ Thêm sản phẩm</button><button id="logoutBtn" class="secondary" type="button">Đăng xuất</button></div></div>
-      <div id="status" role="status">Đang tải…</div>
-    </div>
-    <div class="panel hidden" id="formPanel">
-      <h2 id="formTitle">Thêm sản phẩm</h2>
-      <form id="productForm">
-        <input type="hidden" id="productId">
-        <label>Tên sản phẩm *</label><input id="name" required maxlength="180" placeholder="Tên bó hoa">
-        <div class="row">
-          <div><label>Giá bán (VNĐ) *</label><input id="price" type="number" min="0" step="1000" required placeholder="175000"></div>
-          <div><label>Trạng thái</label><select id="active"><option value="true">Đang hiển thị</option><option value="false">Ẩn sản phẩm</option></select></div>
-        </div>
-        <label>Mô tả</label><textarea id="description" rows="3" placeholder="Mô tả sản phẩm (không bắt buộc)"></textarea>
-        <label>Ảnh sản phẩm (JPG, PNG, WEBP – tối đa 5MB)</label><input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp">
-        <p class="muted" id="currentImage"></p>
-        <div class="actions"><button type="submit" id="saveBtn">Lưu sản phẩm</button><button type="button" class="secondary" id="cancelBtn">Hủy</button></div>
-      </form>
-    </div>
-    <div class="panel">
-      <h2>Danh sách sản phẩm</h2>
-      <div class="table-wrap"><table><thead><tr><th>Ảnh</th><th>Sản phẩm</th><th>Giá</th><th>Hiển thị</th><th>Thao tác</th></tr></thead><tbody id="productRows"></tbody></table></div>
-    </div>
+  <section id="addTab" class="panel hidden">
+    <h2>Thêm đơn hàng</h2><p class="hint">Dùng để ghi nhận đơn TikTok Shop hoặc đơn đặt trực tiếp trên website.</p>
+    <form id="orderForm">
+      <div class="form-grid">
+        <div class="field"><label>Nguồn đơn *</label><select id="orderSource" required><option value="tiktok">TikTok Shop</option><option value="website">Website</option></select></div>
+        <div class="field"><label>Mã đơn (nếu có)</label><input id="orderCode" placeholder="Ví dụ: TTS-12345"></div>
+        <div class="field"><label>Tên khách hàng *</label><input id="customerName" required></div>
+        <div class="field"><label>Số điện thoại</label><input id="phone" inputmode="tel"></div>
+        <div class="field"><label>Sản phẩm *</label><input id="productName" required placeholder="Tên bó hoa"></div>
+        <div class="field"><label>Số lượng *</label><input id="quantity" type="number" min="1" step="1" value="1" required></div>
+        <div class="field"><label>Đơn giá (đ) *</label><input id="unitPrice" type="number" min="0" step="1000" required></div>
+        <div class="field"><label>Phí vận chuyển (đ)</label><input id="shippingFee" type="number" min="0" step="1000" value="0"></div>
+        <div class="field"><label>Giảm giá (đ)</label><input id="discount" type="number" min="0" step="1000" value="0"></div>
+        <div class="field"><label>Trạng thái</label><select id="orderStatus"><option value="new">Mới</option><option value="confirmed">Đã xác nhận</option><option value="shipping">Đang giao</option><option value="completed">Hoàn thành</option><option value="cancelled">Đã hủy</option></select></div>
+      </div>
+      <div class="field"><label>Địa chỉ giao hàng</label><input id="address"></div>
+      <div class="field"><label>Ghi chú</label><textarea id="note"></textarea></div>
+      <div class="notice">Tổng tiền tự tính = số lượng × đơn giá + phí vận chuyển − giảm giá.</div>
+      <button class="btn" type="submit">Lưu đơn hàng</button><span id="orderMessage" class="hint" aria-live="polite"></span>
+    </form>
   </section>
-</div>
+  <section id="trafficTab" class="panel hidden"><h2>Chi tiết lượt truy cập</h2><div class="stats"><div class="stat"><div class="label">Lượt xem</div><strong id="trafficViews">—</strong></div><div class="stat"><div class="label">Khách theo phiên</div><strong id="trafficVisitors">—</strong></div><div class="stat"><div class="label">Nhấn TikTok Shop</div><strong id="tiktokClicks">—</strong></div><div class="stat"><div class="label">Nhấn Zalo</div><strong id="zaloClicks">—</strong></div></div><p class="hint">Số liệu bắt đầu từ khi website ghi sự kiện vào bảng site_events; không thể hồi tố lượt truy cập trước thời điểm cài theo dõi.</p></section>
+</section>
+<div id="globalMessage" class="hint" aria-live="polite"></div>
+</main>
 <script>
-const SUPABASE_URL="https://mbxrttamyblspwapydyl.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY="sb_publishable_5h6qh2O8p-vdtvcUa1g_qA_wg2NWbzD";
-const BUCKET="product-images";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-const $=id=>document.getElementById(id);
-let products=[];
-let editingImageUrl="";
-
-function message(msg){$("status").textContent=msg;}
-function money(v){return new Intl.NumberFormat("vi-VN").format(Number(v)||0)+"đ";}
-function setLoggedIn(user){
-  $("loginPanel").classList.add("hidden");$("appPanel").classList.remove("hidden");
-  $("signedIn").textContent="Đang đăng nhập: "+user.email;
-}
-function setLoggedOut(){
-  $("appPanel").classList.add("hidden");$("loginPanel").classList.remove("hidden");
-}
-async function checkUser(){
-  const {data:{session}}=await sb.auth.getSession();
-  if(session){
-    setLoggedIn(session.user);await loadProducts();
-  }else{
-    setLoggedOut();
-  }
-}
-$("loginBtn").addEventListener("click",async()=>{
-  $("loginStatus").textContent="Đang đăng nhập…";
-  const {data,error}=await sb.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});
-  if(error){$("loginStatus").textContent="Không đăng nhập được: "+error.message;return;}
-  $("loginStatus").textContent="";setLoggedIn(data.user);await loadProducts();
-});
-$("logoutBtn").addEventListener("click",async()=>{await sb.auth.signOut();setLoggedOut();});
-$("newBtn").addEventListener("click",()=>openForm());
-$("cancelBtn").addEventListener("click",closeForm);
-function openForm(p=null){
-  $("formPanel").classList.remove("hidden");$("formTitle").textContent=p?"Sửa sản phẩm":"Thêm sản phẩm";
-  $("productId").value=p?.id||"";$("name").value=p?.name||"";$("price").value=p?.price??"";
-  $("description").value=p?.description||"";$("active").value=String(p?.is_active!==false);
-  $("imageFile").value="";editingImageUrl=p?.image_url||"";
-  $("currentImage").textContent=editingImageUrl?"Đã có ảnh. Chọn ảnh mới nếu muốn thay.":"Chưa có ảnh.";
-  $("formPanel").scrollIntoView({behavior:"smooth",block:"start"});
-}
-function closeForm(){$("formPanel").classList.add("hidden");$("productForm").reset();editingImageUrl="";}
-async function uploadImage(file){
-  if(!file)return editingImageUrl;
-  if(file.size>5*1024*1024)throw new Error("Ảnh vượt quá 5MB.");
-  if(!["image/jpeg","image/png","image/webp"].includes(file.type))throw new Error("Chỉ nhận ảnh JPG, PNG hoặc WEBP.");
-  const ext=file.type==="image/png"?"png":file.type==="image/webp"?"webp":"jpg";
-  const path=Date.now()+"-"+Math.random().toString(36).slice(2)+"."+ext;
-  const {error}=await sb.storage.from(BUCKET).upload(path,file,{upsert:false,contentType:file.type});
-  if(error)throw error;
-  return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
-}
-$("productForm").addEventListener("submit",async e=>{
-  e.preventDefault();$("saveBtn").disabled=true;
-  try{
-    const image_url=await uploadImage($("imageFile").files[0]);
-    const payload={name:$("name").value.trim(),price:Number($("price").value),description:$("description").value.trim(),image_url,is_active:$("active").value==="true"};
-    if(!payload.name)throw new Error("Vui lòng nhập tên sản phẩm.");
-    const id=$("productId").value;
-    const result=id?await sb.from("products").update(payload).eq("id",id):await sb.from("products").insert(payload);
-    if(result.error)throw result.error;
-    closeForm();message("Đã lưu sản phẩm. Website sẽ cập nhật theo dữ liệu mới.");await loadProducts();
-  }catch(err){message("Không lưu được: "+err.message);}
-  finally{$("saveBtn").disabled=false;}
-});
-async function loadProducts(){
-  message("Đang tải sản phẩm…");
-  const {data,error}=await sb.from("products").select("id,name,price,description,image_url,is_active").order("created_at",{ascending:false});
-  if(error){message("Không tải được danh sách: "+error.message);return;}
-  products=data||[];renderRows();message("Có "+products.length+" sản phẩm trong hệ thống.");
-}
-function renderRows(){
-  const body=$("productRows");body.replaceChildren();
-  products.forEach(p=>{
-    const tr=document.createElement("tr");
-    const tdImg=document.createElement("td");const img=document.createElement("img");img.src=p.image_url||"";img.alt="";tdImg.appendChild(img);
-    const tdName=document.createElement("td");tdName.textContent=p.name;
-    const tdPrice=document.createElement("td");tdPrice.textContent=money(p.price);
-    const tdActive=document.createElement("td");tdActive.textContent=p.is_active?"Đang hiện":"Đang ẩn";
-    const tdAction=document.createElement("td");const edit=document.createElement("button");edit.textContent="Sửa";edit.addEventListener("click",()=>openForm(p));
-    const del=document.createElement("button");del.textContent="Xóa";del.className="danger";del.style.marginLeft="6px";del.addEventListener("click",()=>deleteProduct(p));
-    tdAction.append(edit,del);tr.append(tdImg,tdName,tdPrice,tdActive,tdAction);body.appendChild(tr);
-  });
-}
-async function deleteProduct(p){
-  if(!confirm('Xóa sản phẩm "'+p.name+'"?'))return;
-  const {error}=await sb.from("products").delete().eq("id",p.id);
-  if(error){message("Không xóa được: "+error.message);return;}
-  message("Đã xóa sản phẩm.");await loadProducts();
-}
-sb.auth.onAuthStateChange((_event,session)=>{
-  if(!session){setLoggedOut();}
-});
-checkUser();
+const SUPABASE_URL = "https://mbxrttamyblspwapydyl.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_5h6qh2O8p-vdtvcUa1g_qA_wg2NWbzD";
+const ADMIN_EMAIL = "haonhien260985@gmail.com";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const $ = id => document.getElementById(id);
+let allOrders = [], allEvents = [];
+const money = n => new Intl.NumberFormat("vi-VN").format(Number(n)||0)+"đ";
+const statusText = {new:"Mới",confirmed:"Đã xác nhận",shipping:"Đang giao",completed:"Hoàn thành",cancelled:"Đã hủy"};
+function message(el,text,kind=""){el.textContent=text;el.className=kind?"notice "+kind:"hint";}
+function startDate(period){if(period==="all")return null;const d=new Date();if(period==="today")d.setHours(0,0,0,0);else d.setDate(d.getDate()-Number(period)+1);return d.toISOString();}
+function inPeriod(date,period){const start=startDate(period);return !start||new Date(date)>=new Date(start);}
+function switchTab(tab){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));["orders","add","traffic"].forEach(t=>$(t+"Tab").classList.toggle("hidden",t!==tab));}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+async function checkSession(){const {data:{session}}=await db.auth.getSession();if(session){if(session.user.email?.toLowerCase()!==ADMIN_EMAIL){await db.auth.signOut();message($("loginMessage"),"Tài khoản này không có quyền quản trị.","error");return;}showApp(session.user);}else{$("loginPanel").classList.remove("hidden");$("appPanel").classList.add("hidden");}}
+function showApp(user){$("loginPanel").classList.add("hidden");$("appPanel").classList.remove("hidden");$("adminEmail").textContent=user.email||"Quản trị viên";loadDashboard();}
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();message($("loginMessage"),"Đang đăng nhập...");const {data,error}=await db.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error){message($("loginMessage"),"Không đăng nhập được: "+error.message,"error");return;}if(data.user.email?.toLowerCase()!==ADMIN_EMAIL){await db.auth.signOut();message($("loginMessage"),"Email này chưa được cấp quyền quản trị.","error");return;}showApp(data.user);});
+$("logoutBtn").addEventListener("click",async()=>{await db.auth.signOut();location.reload();});
+$("refreshBtn").addEventListener("click",loadDashboard);$("period").addEventListener("change",loadDashboard);
+async function loadDashboard(){message($("globalMessage"),"Đang tải dữ liệu...");try{
+ const [o,e]=await Promise.all([db.from("orders").select("*").order("created_at",{ascending:false}).limit(1000),db.from("site_events").select("event_type,target,session_id,page_path,created_at").order("created_at",{ascending:false}).limit(5000)]);
+ if(o.error)throw new Error("Đơn hàng: "+o.error.message);if(e.error)throw new Error("Lượt truy cập: "+e.error.message);
+ allOrders=o.data||[];allEvents=e.data||[];renderDashboard();message($("globalMessage"),"Đã cập nhật dữ liệu.","success");
+ }catch(err){message($("globalMessage"),"Không tải được dashboard: "+err.message+". Hãy kiểm tra đã chạy setup.sql trong Supabase chưa.","error");}}
+function renderDashboard(){const p=$("period").value;const orders=allOrders.filter(x=>inPeriod(x.created_at,p));const events=allEvents.filter(x=>inPeriod(x.created_at,p));const views=events.filter(x=>x.event_type==="page_view");const visitors=new Set(views.map(x=>x.session_id).filter(Boolean)).size;const completed=orders.filter(x=>x.status==="completed");const revenue=completed.reduce((s,x)=>s+Number(x.total||0),0);const pending=orders.filter(x=>["new","confirmed","shipping"].includes(x.status)).length;
+ $("views").textContent=views.length.toLocaleString("vi-VN");$("visitors").textContent="Khách theo phiên: "+visitors.toLocaleString("vi-VN");$("ordersCount").textContent=orders.length.toLocaleString("vi-VN");$("pendingCount").textContent="Chờ xử lý: "+pending;$("revenue").textContent=money(revenue);$("average").textContent=money(completed.length?revenue/completed.length:0);
+ $("trafficViews").textContent=views.length.toLocaleString("vi-VN");$("trafficVisitors").textContent=visitors.toLocaleString("vi-VN");$("tiktokClicks").textContent=events.filter(x=>x.event_type==="click"&&x.target==="tiktok").length.toLocaleString("vi-VN");$("zaloClicks").textContent=events.filter(x=>x.event_type==="click"&&x.target==="zalo").length.toLocaleString("vi-VN");renderChart(orders,p);renderOrders();}
+function renderChart(orders,period){let days=period==="today"?1:period==="7"?7:period==="30"?14:14;const labels=[];for(let i=days-1;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);labels.push(d);}const totals=labels.map(d=>orders.filter(o=>o.status==="completed"&&new Date(o.created_at).toDateString()===d.toDateString()).reduce((s,o)=>s+Number(o.total||0),0));const max=Math.max(...totals,1);$("chart").innerHTML=labels.map((d,i)=>`<div class="barbox"><div class="bar" title="${money(totals[i])}" style="height:${Math.max(2,totals[i]/max*100)}%"></div><small>${d.getDate()}/${d.getMonth()+1}</small></div>`).join("");}
+function renderOrders(){const q=$("searchOrders").value.toLowerCase();const src=$("sourceFilter").value;const st=$("statusFilter").value;const rows=allOrders.filter(o=>(src==="all"||o.source===src)&&(st==="all"||o.status===st)&&[o.order_code,o.customer_name,o.phone,o.product_name].some(v=>(v||"").toLowerCase().includes(q)));$("orderTotal").textContent=rows.length+" đơn";$("ordersBody").innerHTML=rows.map(o=>`<tr><td><b>${esc(o.order_code||("#"+o.id))}</b><br><span class="hint">${new Date(o.created_at).toLocaleString("vi-VN")}</span></td><td>${o.source==="tiktok"?"TikTok Shop":"Website"}</td><td>${esc(o.customer_name)}<br>${esc(o.phone||"")}</td><td>${esc(o.product_name)} × ${o.quantity}</td><td><b>${money(o.total)}</b></td><td><span class="pill ${o.status}">${statusText[o.status]||o.status}</span></td><td><select data-status-id="${o.id}" aria-label="Trạng thái đơn ${o.id}">${Object.entries(statusText).map(([k,v])=>`<option value="${k}" ${o.status===k?"selected":""}>${v}</option>`).join("")}</select></td></tr>`).join("");$("ordersEmpty").classList.toggle("hidden",rows.length>0);document.querySelectorAll("[data-status-id]").forEach(s=>s.addEventListener("change",()=>updateStatus(s.dataset.statusId,s.value)));}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+async function updateStatus(id,status){const {error}=await db.from("orders").update({status,updated_at:new Date().toISOString()}).eq("id",id);if(error){alert("Không cập nhật được: "+error.message);return;}await loadDashboard();}
+["searchOrders","sourceFilter","statusFilter"].forEach(id=>$(id).addEventListener(id==="searchOrders"?"input":"change",renderOrders));
+$("orderForm").addEventListener("submit",async e=>{e.preventDefault();const qty=Number($("quantity").value),unit=Number($("unitPrice").value),ship=Number($("shippingFee").value||0),discount=Number($("discount").value||0);const total=Math.max(0,qty*unit+ship-discount);const payload={source:$("orderSource").value,order_code:$("orderCode").value.trim()||null,customer_name:$("customerName").value.trim(),phone:$("phone").value.trim()||null,address:$("address").value.trim()||null,product_name:$("productName").value.trim(),quantity:qty,unit_price:unit,shipping_fee:ship,discount,total,status:$("orderStatus").value,note:$("note").value.trim()||null};const btn=e.submitter;btn.disabled=true;message($("orderMessage"),"Đang lưu đơn...");const {error}=await db.from("orders").insert(payload);btn.disabled=false;if(error){message($("orderMessage"),"Không lưu được: "+error.message,"error");return;}e.target.reset();$("quantity").value=1;$("shippingFee").value=0;$("discount").value=0;message($("orderMessage"),"Đã lưu đơn hàng thành công.","success");switchTab("orders");await loadDashboard();});
+checkSession();
 </script>
 </body>
 </html>
